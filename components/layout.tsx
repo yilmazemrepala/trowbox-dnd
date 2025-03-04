@@ -1,47 +1,70 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { TabKey } from "@/app/test/page";
-import {
-	ContactLayouts,
-	HomeLayouts,
-	NotesLayouts,
-	WorkLayouts,
-	keys,
-} from "@/utils/layout.helper";
+import { CardTypes, cardData, keys } from "@/utils/layout.helper";
+import { SpotifyCards } from "@/components/cards/SpotifyCards";
+import { InstagramCard } from "@/components/cards/InstagramCard";
 
-interface LayoutProps {
-	tab: TabKey;
-	setTab: React.Dispatch<React.SetStateAction<TabKey>>;
-	left?: number;
-	sliderWidth?: number;
-}
-
-function Layout({ tab }: LayoutProps) {
-	const [currentlayout, setCurrentLayout] = useState(HomeLayouts);
-
-	useEffect(() => {
-		switch (tab) {
-			case TabKey.Work:
-				setCurrentLayout(WorkLayouts);
-				break;
-			case TabKey.Home:
-				setCurrentLayout(HomeLayouts);
-				break;
-			case TabKey.Contact:
-				setCurrentLayout(ContactLayouts);
-				break;
-			case TabKey.Blog:
-				setCurrentLayout(NotesLayouts);
-				break;
-			default:
-				setCurrentLayout(HomeLayouts);
-		}
-	}, [tab]);
-
+function Layout() {
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
 		[]
 	);
+
+	// Kart tipine göre render edecek fonksiyon
+	const renderCard = (key: string) => {
+		const card = cardData.lg.find((item) => item.i === key);
+
+		// Eğer key için bir kart tanımlanmadıysa boş bir div döndür
+		if (!card) {
+			return (
+				<div className="h-full w-full flex justify-center items-center bg-white rounded-2xl border border-gray-200 p-4">
+					{key}
+				</div>
+			);
+		}
+
+		// Kart boyutuna göre className belirleme
+		const sizeClass =
+			{
+				SMALL: "h-full w-full",
+				MEDIUM: "h-full w-full",
+				LARGE: "h-full w-full",
+				TALL: "h-full w-full",
+			}[card.size] || "h-full w-full";
+
+		if (card.type === CardTypes.Spotify) {
+			return (
+				<div className={sizeClass}>
+					<SpotifyCards
+						size={card.size}
+						title={card.title}
+						songCount={card.songCount}
+						songArtist={card.songArtist}
+						imageUrl={card.imageUrl}
+						songs={card.songs}
+					/>
+				</div>
+			);
+		} else if (card.type === CardTypes.Instagram) {
+			return (
+				<div className={sizeClass}>
+					<InstagramCard
+						size={card.size}
+						title={card.title}
+						imageUrl={card.imageUrl}
+						username={card.username}
+					/>
+				</div>
+			);
+		}
+
+		// Bilinmeyen kart tipi için fallback
+		return (
+			<div className="h-full w-full flex justify-center items-center bg-white rounded-2xl border border-gray-200 p-4">
+				Unknown card type: {card.type}
+			</div>
+		);
+	};
 
 	return (
 		<div className="w-screen m-auto flex justify-between b-10">
@@ -49,26 +72,20 @@ function Layout({ tab }: LayoutProps) {
 				className="m-auto w-[900px]"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
 				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
-				rowHeight={300}
-				layouts={currentlayout}>
+				rowHeight={170}
+				margin={[10, 10]}
+				containerPadding={[10, 10]} // Dış kenar boşluğu
+				layouts={cardData.lg}>
 				{keys.map((key) => (
 					<div
 						key={key}
-						className="bg-[#f5f5f7] flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
-						<Block keyProp={key} />
+						className="rounded-2xl cursor-grab active:cursor-grabbing overflow-hidden">
+						{renderCard(key)}
 					</div>
 				))}
 			</ResponsiveReactGridLayout>
 		</div>
 	);
 }
-
-const Block = ({ keyProp }: { keyProp: string }) => {
-	return (
-		<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-white text-[var(--black-1)] rounded-2xl text-3xl border-2 border-red-500 uppercase">
-			{keyProp}
-		</div>
-	);
-};
 
 export default Layout;
