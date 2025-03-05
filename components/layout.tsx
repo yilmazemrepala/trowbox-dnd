@@ -1,70 +1,18 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { CardTypes, cardData, keys } from "@/utils/layout.helper";
-import { SpotifyCards } from "@/components/cards/SpotifyCards";
-import { InstagramCard } from "@/components/cards/InstagramCard";
+import { cardData } from "@/utils/layout.helper";
+// import { CardTypes, cardData, keys } from "@/utils/layout.helper";
+// import { SpotifyCards } from "@/components/cards/SpotifyCards";
+// import { InstagramCard } from "@/components/cards/InstagramCard";
 
-function Layout() {
+const Layout = () => {
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
 		[]
 	);
 
-	// Kart tipine göre render edecek fonksiyon
-	const renderCard = (key: string) => {
-		const card = cardData.lg.find((item) => item.i === key);
-
-		// Eğer key için bir kart tanımlanmadıysa boş bir div döndür
-		if (!card) {
-			return (
-				<div className="h-full w-full flex justify-center items-center bg-white rounded-2xl border border-gray-200 p-4">
-					{key}
-				</div>
-			);
-		}
-
-		// Kart boyutuna göre className belirleme
-		const sizeClass =
-			{
-				SMALL: "h-full w-full",
-				MEDIUM: "h-full w-full",
-				LARGE: "h-full w-full",
-				TALL: "h-full w-full",
-			}[card.size] || "h-full w-full";
-
-		if (card.type === CardTypes.Spotify) {
-			return (
-				<div className={sizeClass}>
-					<SpotifyCards
-						size={card.size}
-						title={card.title}
-						songCount={card.songCount}
-						songArtist={card.songArtist}
-						imageUrl={card.imageUrl}
-						songs={card.songs}
-					/>
-				</div>
-			);
-		} else if (card.type === CardTypes.Instagram) {
-			return (
-				<div className={sizeClass}>
-					<InstagramCard
-						size={card.size}
-						title={card.title}
-						imageUrl={card.imageUrl}
-						username={card.username}
-					/>
-				</div>
-			);
-		}
-
-		// Bilinmeyen kart tipi için fallback
-		return (
-			<div className="h-full w-full flex justify-center items-center bg-white rounded-2xl border border-gray-200 p-4">
-				Unknown card type: {card.type}
-			</div>
-		);
-	};
+	// Tüm card'ları tek bir dizide topla
+	const allCards = [...cardData.lg];
 
 	return (
 		<div className="w-screen m-auto flex justify-between b-10">
@@ -72,20 +20,31 @@ function Layout() {
 				className="m-auto w-[900px]"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
 				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
-				rowHeight={170}
+				rowHeight={164}
 				margin={[10, 10]}
-				containerPadding={[10, 10]} // Dış kenar boşluğu
-				layouts={cardData.lg}>
-				{keys.map((key) => (
+				layouts={cardData}
+				containerPadding={[10, 10]}>
+				{allCards.map((card) => (
 					<div
-						key={key}
-						className="rounded-2xl cursor-grab active:cursor-grabbing overflow-hidden">
-						{renderCard(key)}
+						key={card.i}
+						className="bg-slate-200 flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
+						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
+						<Block keyProp={card.i} />
 					</div>
 				))}
 			</ResponsiveReactGridLayout>
 		</div>
 	);
-}
+};
 
-export default Layout;
+const Block = memo(({ keyProp }: { keyProp: string }) => {
+	return (
+		<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200  text-[var(--black-1)] rounded-2xl text-3xl uppercase">
+			{keyProp}
+		</div>
+	);
+});
+
+Block.displayName = "Block";
+
+export default memo(Layout);
