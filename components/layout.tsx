@@ -22,7 +22,7 @@ const Layout = () => {
 				className="m-auto w-[900px]"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
 				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
-				rowHeight={164}
+				rowHeight={180}
 				margin={[10, 10]}
 				layouts={cardData}
 				containerPadding={[10, 10]}>
