@@ -1,11 +1,11 @@
+"use client";
 import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCard } from "@/components/cards/InstagramCard";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
-// import { CardTypes, cardData, keys } from "@/utils/layout.helper";
-// import { SpotifyCards } from "@/components/cards/SpotifyCards";
-// import { InstagramCard } from "@/components/cards/InstagramCard";
+
+import "@/public/index.css";
 
 const Layout = () => {
 	const ResponsiveReactGridLayout = useMemo(
