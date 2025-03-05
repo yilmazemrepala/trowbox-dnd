@@ -1,6 +1,8 @@
 import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
+import { InstagramCard } from "@/components/cards/InstagramCard";
+import { SpotifyCards } from "@/components/cards/SpotifyCards";
 // import { CardTypes, cardData, keys } from "@/utils/layout.helper";
 // import { SpotifyCards } from "@/components/cards/SpotifyCards";
 // import { InstagramCard } from "@/components/cards/InstagramCard";
@@ -27,9 +29,9 @@ const Layout = () => {
 				{allCards.map((card) => (
 					<div
 						key={card.i}
-						className="bg-slate-200 flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
+						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
 						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
-						<Block keyProp={card.i} />
+						<Block keyProp={card.i} {...card} />
 					</div>
 				))}
 			</ResponsiveReactGridLayout>
@@ -37,12 +39,19 @@ const Layout = () => {
 	);
 };
 
-const Block = memo(({ keyProp }: { keyProp: string }) => {
-	return (
-		<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200  text-[var(--black-1)] rounded-2xl text-3xl uppercase">
-			{keyProp}
-		</div>
-	);
+const Block = memo(({ keyProp, ...card }: any) => {
+	switch (card.type) {
+		case "instagram":
+			return <InstagramCard {...card} />;
+		case "spotify":
+			return <SpotifyCards {...card} />;
+		default:
+			return (
+				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">
+					{keyProp}
+				</div>
+			);
+	}
 });
 
 Block.displayName = "Block";

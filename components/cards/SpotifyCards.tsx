@@ -18,14 +18,6 @@ interface SpotifyCardProps {
 	}>;
 }
 
-const CardSizes = {
-	SMALL: "col-span-1 row-span-1",
-	MEDIUM: "col-span-2 row-span-1",
-	LARGE: "col-span-2 row-span-2",
-	TALL: "col-span-1 row-span-2",
-	FLAT: "col-span-2 h-20",
-};
-
 const SpotifyCards = memo(
 	({
 		size,
@@ -38,7 +30,7 @@ const SpotifyCards = memo(
 		if (size === "MEDIUM") {
 			return (
 				<div
-					className={`${CardSizes[size]} bg-[#EDFDF3] rounded-3xl p-4 flex items-center gap-4 border border-gray-200`}>
+					className={`size-full bg-[#EDFDF3] rounded-3xl p-4 flex items-center gap-4 border border-gray-200`}>
 					<div className="flex flex-col gap-1.5">
 						<FaSpotify className="h-[2.5em] w-[2.5em] text-white bg-[#1DD760] rounded-xl p-2" />
 						<h3 className="font-base text-sm">{title}</h3>
@@ -70,7 +62,7 @@ const SpotifyCards = memo(
 		if (size === "FLAT") {
 			return (
 				<div
-					className={`${CardSizes.FLAT} bg-[#EDFDF3] rounded-3xl p-4 flex items-center gap-4 border border-gray-200`}>
+					className={`size-full bg-[#EDFDF3] rounded-3xl p-4 flex items-center gap-4 border border-gray-200`}>
 					<div className="flex flex-row overflow-hidden flex-1 items-center gap-1.5">
 						<FaSpotify className="h-[2.5em] w-[2.5em] text-white bg-[#1DD760] rounded-xl p-2" />
 						<h3 className="font-base truncate text-sm">{title}</h3>
@@ -82,7 +74,7 @@ const SpotifyCards = memo(
 		if (size === "LARGE") {
 			return (
 				<div
-					className={`${CardSizes.LARGE} bg-[#EDFDF3] rounded-3xl p-4 border border-gray-200 flex flex-col `}>
+					className={`size-full bg-[#EDFDF3] rounded-3xl p-4 border border-gray-200 flex flex-col `}>
 					{/* Üst Bar (Spotify Logo + Başlık + Play Butonu) */}
 					<div className="flex flex-row flex-1 justify-between items-start mb-4">
 						<div className="flex flex-col items-start gap-3">
@@ -157,7 +149,7 @@ const SpotifyCards = memo(
 		if (size === "TALL") {
 			return (
 				<div
-					className={`${CardSizes.TALL} bg-[#EDFDF3] rounded-3xl p-4 flex flex-col justify-between border border-gray-200`}>
+					className={`size-full bg-[#EDFDF3] rounded-3xl p-4 flex flex-col justify-between border border-gray-200`}>
 					<div className="flex flex-row flex-1 justify-between items-start mb-4">
 						<div className="flex flex-col items-start gap-1">
 							<FaSpotify className="h-[2.5em] w-[2.5em] text-white bg-[#1DD760] rounded-xl p-2" />
@@ -193,7 +185,7 @@ const SpotifyCards = memo(
 		if (size === "SMALL") {
 			return (
 				<div
-					className={`${CardSizes.SMALL} bg-[#EDFEF3] rounded-3xl p-4 flex flex-col justify-between border border-gray-200`}>
+					className={`size-full bg-[#EDFEF3] rounded-3xl p-4 flex flex-col justify-between border border-gray-200`}>
 					<div className="flex flex-col items-start gap-1">
 						<FaSpotify className="h-[2em] w-[2em] text-white bg-[#1DD760] rounded-xl p-1" />
 						<h3 className="font-base text-sm truncate w-28">{title}</h3>
