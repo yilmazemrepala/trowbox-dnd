@@ -1,5 +1,5 @@
 "use client";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useRef, useEffect, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCards } from "@/components/cards/InstagramCards";
@@ -17,6 +17,51 @@ const Layout = () => {
 	// Tüm card'ları tek bir dizide topla
 	const allCards = [...cardData.lg];
 
+	// Track the currently dragged card type
+	const [draggedCardType, setDraggedCardType] = useState(null);
+
+	// Handle drag start event
+	const onDragStart = (layout, oldItem, newItem, placeholder, e, element) => {
+		// Find the card data to determine its type
+		const cardItem = allCards.find((card) => card.i === oldItem.i);
+		if (cardItem) {
+			setDraggedCardType(cardItem.type);
+		}
+	};
+
+	// Handle drag stop event
+	const onDragStop = () => {
+		setDraggedCardType(null);
+	};
+
+	// Add custom class to placeholder based on dragged card type
+	useEffect(() => {
+		if (!draggedCardType) return;
+
+		const placeholder = document.querySelector(
+			".react-grid-item.react-grid-placeholder"
+		);
+		if (placeholder) {
+			if (draggedCardType === "spotify") {
+				placeholder.classList.add("spotify-placeholder");
+			} else if (draggedCardType === "instagram") {
+				placeholder.classList.add("instagram-placeholder");
+			}
+		}
+
+		return () => {
+			const placeholder = document.querySelector(
+				".react-grid-item.react-grid-placeholder"
+			);
+			if (placeholder) {
+				placeholder.classList.remove(
+					"spotify-placeholder",
+					"instagram-placeholder"
+				);
+			}
+		};
+	}, [draggedCardType]);
+
 	return (
 		<div className="w-screen m-auto flex justify-between b-10">
 			<ResponsiveReactGridLayout
@@ -26,7 +71,9 @@ const Layout = () => {
 				rowHeight={180}
 				margin={[10, 10]}
 				layouts={cardData}
-				containerPadding={[10, 10]}>
+				containerPadding={[10, 10]}
+				onDragStart={onDragStart}
+				onDragStop={onDragStop}>
 				{allCards.map((card) => (
 					<div
 						key={card.i}

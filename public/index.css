@@ -14,9 +14,49 @@
 	animation: pulse-animation 2s infinite;
 }
 
+/* Spotify card placeholder styles */
+.react-grid-item.react-grid-placeholder.spotify-placeholder {
+	background-color: #daefe8 !important;
+	opacity: 0.9 !important;
+	border: 3px dashed #8bd3b8 !important;
+	animation: spotify-pulse-animation 2s infinite;
+}
+
+/* Instagram card placeholder styles */
+.react-grid-item.react-grid-placeholder.instagram-placeholder {
+	background: radial-gradient(
+			circle farthest-corner at 35% 90%,
+			#fec564,
+			transparent 50%
+		),
+		radial-gradient(circle farthest-corner at 0 140%, #fec564, transparent 50%),
+		radial-gradient(ellipse farthest-corner at 0 -25%, #5258cf, transparent 50%),
+		radial-gradient(
+			ellipse farthest-corner at 20% -50%,
+			#5258cf,
+			transparent 50%
+		),
+		radial-gradient(ellipse farthest-corner at 100% 0, #893dc2, transparent 50%),
+		radial-gradient(
+			ellipse farthest-corner at 60% -20%,
+			#893dc2,
+			transparent 50%
+		),
+		radial-gradient(ellipse farthest-corner at 100% 100%, #d9317a, transparent),
+		linear-gradient(
+			#6559ca,
+			#bc318f 30%,
+			#e33f5f 50%,
+			#f77638 70%,
+			#fec66d 100%
+		) !important;
+	opacity: 0.5 !important;
+	animation: instagram-pulse-animation 2s infinite;
+}
+
 .react-grid-item {
 	/* transition: transform 500ms ease 0s !important; */
-	transition: visibility 500ms ease 0s;
+	transition: visibility 100ms ease 0s;
 	/* will-change: transform; */
 }
 
@@ -29,5 +69,31 @@
 	}
 	100% {
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+/* Spotify özel pulse animasyonu */
+@keyframes spotify-pulse-animation {
+	0% {
+		box-shadow: 0 0 0 0px rgba(139, 211, 184, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 0 20px rgba(139, 211, 184, 0.2);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(139, 211, 184, 0);
+	}
+}
+
+/* Instagram özel pulse animasyonu */
+@keyframes instagram-pulse-animation {
+	0% {
+		box-shadow: 0 0 0 0px rgba(225, 48, 108, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 0 20px rgba(225, 48, 108, 0.2);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(225, 48, 108, 0);
 	}
 }
