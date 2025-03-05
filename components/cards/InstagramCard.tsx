@@ -13,7 +13,7 @@ const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "SMALL") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 h-[164px]`}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 `}>
 				<div className="flex flex-col items-start gap-5">
 					<div className="flex flex-col gap-2">
 						<div
@@ -43,7 +43,7 @@ const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "MEDIUM") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4 h-[164px]`}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4`}>
 				<div className="flex flex-col items-start gap-2">
 					<div className="flex flex-col gap-2">
 						<div
@@ -89,7 +89,7 @@ const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "TALL") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6 h-[343px]`}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6 `}>
 				<div className="flex flex-col gap-1">
 					<div className="flex flex-col gap-1">
 						<div
@@ -126,7 +126,7 @@ const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "LARGE") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 h-[343px]`}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6`}>
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-row items-start justify-between">
 						<div className="flex flex-col gap-2">
