@@ -25,7 +25,7 @@ const CatalogCards = memo(({ size, title, imageUrl }: CatalogCardProps) => {
 					</div>
 				</div>
 				<div className="mt-4">
-					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-md font-semibold text-xs">
+					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 						Download
 					</button>
 				</div>
@@ -37,7 +37,7 @@ const CatalogCards = memo(({ size, title, imageUrl }: CatalogCardProps) => {
 		return (
 			<div className="size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6">
 				<div className="flex flex-col items-start gap-5">
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-2 mb-8">
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-red-700">
 							<SiAdobeacrobatreader className="h-6 w-6 text-white" />{" "}
 						</div>
@@ -45,13 +45,13 @@ const CatalogCards = memo(({ size, title, imageUrl }: CatalogCardProps) => {
 						<Image
 							src={catalogImage}
 							alt={title}
-							width={100}
-							height={100}
+							width={130}
+							height={130}
 							className=" object-cover rounded-md"
 						/>
 					</div>
 
-					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-md font-semibold text-xs mt-auto">
+					<button className="bg-red-700 h-8 mt-8 w-fit text-white px-4 py-1  font-semibold text-xs rounded-full">
 						Download
 					</button>
 				</div>
@@ -65,11 +65,11 @@ const CatalogCards = memo(({ size, title, imageUrl }: CatalogCardProps) => {
 				<div className="flex flex-col justify-between">
 					<div>
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-red-700">
-							<SiAdobeacrobatreader className="h-6 w-6 text-white" />{" "}
+							<SiAdobeacrobatreader className="h-6 w-6 text-white" />
 						</div>
 						<span className="font-base text-sm mt-3 block">{title}</span>
 					</div>
-					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-md font-semibold text-xs mt-auto">
+					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs mt-auto">
 						Download
 					</button>
 				</div>
@@ -96,7 +96,7 @@ const CatalogCards = memo(({ size, title, imageUrl }: CatalogCardProps) => {
 						</div>
 						<span className="font-base text-sm mt-1.5">{title}</span>
 					</div>
-					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-md font-semibold text-xs">
+					<button className="bg-red-700 h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 						Download
 					</button>
 				</div>

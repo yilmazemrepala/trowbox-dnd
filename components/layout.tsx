@@ -2,10 +2,11 @@
 import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
-import { InstagramCard } from "@/components/cards/InstagramCard";
+import { InstagramCards } from "@/components/cards/InstagramCards";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
 import { CatalogCards } from "@/components/cards/CatalogCards";
 import "@/public/index.css";
+import { YoutubeCards } from "@/components/cards/YoutubeCards";
 
 const Layout = () => {
 	const ResponsiveReactGridLayout = useMemo(
@@ -42,11 +43,13 @@ const Layout = () => {
 const Block = memo(({ keyProp, ...card }: any) => {
 	switch (card.type) {
 		case "instagram":
-			return <InstagramCard {...card} />;
+			return <InstagramCards {...card} />;
 		case "spotify":
 			return <SpotifyCards {...card} />;
 		case "catalog":
 			return <CatalogCards {...card} />;
+		case "youtube":
+			return <YoutubeCards {...card} />;
 		default:
 			return (
 				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">

@@ -9,7 +9,7 @@ interface InstagramCardProps {
 	username?: string;
 }
 
-const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
+const InstagramCards = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "SMALL") {
 		return (
 			<div
@@ -164,6 +164,6 @@ const InstagramCard = memo(({ size, title }: InstagramCardProps) => {
 	}
 });
 
-InstagramCard.displayName = "InstagramCard";
+InstagramCards.displayName = "InstagramCards";
 
-export { InstagramCard };
+export { InstagramCards };
