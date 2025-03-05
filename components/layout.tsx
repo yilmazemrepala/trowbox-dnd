@@ -4,7 +4,7 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCard } from "@/components/cards/InstagramCard";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
-
+import { CatalogCards } from "@/components/cards/CatalogCards";
 import "@/public/index.css";
 
 const Layout = () => {
@@ -45,6 +45,8 @@ const Block = memo(({ keyProp, ...card }: any) => {
 			return <InstagramCard {...card} />;
 		case "spotify":
 			return <SpotifyCards {...card} />;
+		case "catalog":
+			return <CatalogCards {...card} />;
 		default:
 			return (
 				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">
