@@ -15,7 +15,6 @@ interface HoverCardProps {
 	};
 	cardType: string;
 	cardRef: React.RefObject<HTMLDivElement>;
-	selected: string;
 }
 
 export const HoverCard = ({
@@ -23,7 +22,6 @@ export const HoverCard = ({
 	position,
 	// cardType,
 	cardRef,
-	selected,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
 	const hoverCardRef = useRef<HTMLDivElement>(null);
@@ -61,23 +59,23 @@ export const HoverCard = ({
 				left: `${cardPosition.left}px`,
 			}}>
 			<div className="flex flex-row flex-1 no-wrap gap-3 items-center">
-				<span className={selected === "vertical" ? "selected" : ""}>
+				<span>
 					<LuRectangleVertical className="text-white" />
 				</span>
-				<span className={selected === "horizontal" ? "selected" : ""}>
+				<span>
 					<LuRectangleHorizontal className="text-white" />
 				</span>
-				<span className={selected === "bold" ? "selected" : ""}>
+				<span>
 					<PiRectangleBold className="text-white" />
 				</span>
-				<span className={selected === "dashed" ? "selected" : ""}>
+				<span>
 					<TbSquareDashed className="text-white" />
 				</span>
 				<Separator
 					orientation="vertical"
-					className=" !h-2 !bg-gray-500 !text-gray-500"
+					className=" !h-2 !bg- !text-gray-500"
 				/>
-				<span className={selected === "dots" ? "selected" : ""}>
+				<span>
 					<HiDotsHorizontal className="text-white" />
 				</span>
 			</div>
