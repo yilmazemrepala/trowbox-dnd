@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { LuRectangleVertical, LuRectangleHorizontal } from "react-icons/lu";
-import { PiRectangleBold } from "react-icons/pi";
 import { TbSquareDashed } from "react-icons/tb";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { Separator } from "@/components/ui/separator";
