@@ -1,6 +1,6 @@
 "use client";
 import "@/public/index.css";
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo, useState, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import type { Layout } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
@@ -11,16 +11,54 @@ import { YoutubeCards } from "@/components/cards/YoutubeCards";
 import { LinkedinCards } from "./cards/LinkedinCards";
 import { useDragHandler } from "@/utils/dragHelper";
 import { CardProps } from "@/types/cardProps.types";
+import { CardResizeProvider, useCardResize } from "@/hooks/useCardResize";
 
-const Layout = () => {
+const LayoutContent = () => {
 	const [isDragging, setIsDragging] = useState(false);
+	const [layouts, setLayouts] = useState(cardData);
+	const { cardSizes } = useCardResize();
 
-	const allCards = cardData.lg.map((card) => ({
+	const allCards = layouts.lg.map((card) => ({
 		...card,
 		size: card.size as "TALL" | "SMALL" | "MEDIUM" | "LARGE",
 	}));
 
 	const { onDragStart, onDragStop } = useDragHandler(allCards);
+
+	// Update layouts when card sizes change
+	useEffect(() => {
+		if (Object.keys(cardSizes).length > 0) {
+			const updatedLayouts = {
+				...layouts,
+				lg: layouts.lg.map((item) => {
+					if (cardSizes[item.i]) {
+						// Update w and h based on cardSizes
+						return {
+							...item,
+							w: cardSizes[item.i].w,
+							h: cardSizes[item.i].h,
+							// Update size based on w and h
+							size: getSizeFromDimensions(
+								cardSizes[item.i].w,
+								cardSizes[item.i].h
+							),
+						};
+					}
+					return item;
+				}),
+			};
+			setLayouts(updatedLayouts);
+		}
+	}, [cardSizes]);
+
+	// Helper function to determine size based on dimensions
+	const getSizeFromDimensions = (w: number, h: number) => {
+		if (w === 1 && h === 1) return "SMALL";
+		if (w === 2 && h === 1) return "MEDIUM";
+		if (w === 1 && h === 2) return "TALL";
+		if (w === 2 && h === 2) return "LARGE";
+		return "MEDIUM"; // Default
+	};
 
 	const handleDragStart = (layout: Layout[], oldItem: Layout) => {
 		setIsDragging(true);
@@ -45,7 +83,7 @@ const Layout = () => {
 				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
 				rowHeight={180}
 				margin={[10, 10]}
-				layouts={cardData}
+				layouts={layouts}
 				containerPadding={[10, 10]}
 				onDragStart={handleDragStart}
 				onDragStop={handleDragStop}>
@@ -84,5 +122,13 @@ const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 });
 
 Block.displayName = "Block";
+
+const Layout = () => {
+	return (
+		<CardResizeProvider initialLayouts={cardData}>
+			<LayoutContent />
+		</CardResizeProvider>
+	);
+};
 
 export default memo(Layout);

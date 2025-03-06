@@ -4,6 +4,7 @@ import { LuRectangleVertical, LuRectangleHorizontal } from "react-icons/lu";
 import { TbSquareDashed } from "react-icons/tb";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { Separator } from "@/components/ui/separator";
+import { useCardResize } from "@/hooks/useCardResize";
 
 interface HoverCardProps {
 	isHovered: boolean;
@@ -14,18 +15,21 @@ interface HoverCardProps {
 	};
 	cardType: string;
 	cardRef: React.RefObject<HTMLDivElement>;
+	cardId: string; // Add cardId to identify which card to resize
 }
 
 export const HoverCard = ({
 	isHovered: initialIsHovered,
 	position,
-	// cardType,
+	cardType,
 	cardRef,
+	cardId,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
 	const [isHovered, setIsHovered] = useState(initialIsHovered);
 	const [activeIcon, setActiveIcon] = useState<string | null>(null);
 	const hoverCardRef = useRef<HTMLDivElement>(null);
+	const { resizeCard } = useCardResize();
 
 	useEffect(() => {
 		setIsHovered(initialIsHovered);
@@ -60,7 +64,24 @@ export const HoverCard = ({
 		e.preventDefault();
 		setActiveIcon(activeIcon === iconType ? null : iconType);
 		setIsHovered(true);
-		console.log(`Clicked on ${iconType}`);
+
+		// Handle resize based on icon type
+		switch (iconType) {
+			case "squareSmall":
+				resizeCard(cardId, { w: 1, h: 1 }); // SMALL size
+				break;
+			case "horizontal":
+				resizeCard(cardId, { w: 2, h: 1 }); // MEDIUM size
+				break;
+			case "vertical":
+				resizeCard(cardId, { w: 1, h: 2 }); // TALL size
+				break;
+			case "square":
+				resizeCard(cardId, { w: 2, h: 2 }); // LARGE size
+				break;
+			default:
+				break;
+		}
 	};
 
 	const getIconClassName = (iconType: string) => {

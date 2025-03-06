@@ -7,7 +7,7 @@ import { useHoverCard } from "@/hooks/useHoverCard";
 import { CardProps } from "@/types/cardProps.types";
 
 const LinkedinCards = memo(
-	({ size, title, imageUrl, isDragging }: CardProps) => {
+	({ i, size, title, imageUrl, isDragging }: CardProps) => {
 		// Varsayılan katalog görseli
 		const defaultImage = "https://placehold.co/400x400";
 		const catalogImage = imageUrl || defaultImage;
@@ -53,6 +53,7 @@ const LinkedinCards = memo(
 						position={hoverCardPosition}
 						cardType="linkedin"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -99,6 +100,7 @@ const LinkedinCards = memo(
 						position={hoverCardPosition}
 						cardType="linkedin"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -146,6 +148,7 @@ const LinkedinCards = memo(
 						position={hoverCardPosition}
 						cardType="linkedin"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -190,6 +193,7 @@ const LinkedinCards = memo(
 						position={hoverCardPosition}
 						cardType="linkedin"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
