@@ -79,6 +79,7 @@ const SpotifyCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="spotify"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -200,6 +201,7 @@ const SpotifyCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="spotify"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -259,6 +261,7 @@ const SpotifyCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="spotify"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -304,6 +307,7 @@ const SpotifyCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="spotify"
+						cardRef={cardRef}
 					/>
 				</div>
 			);

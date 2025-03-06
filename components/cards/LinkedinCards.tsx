@@ -52,6 +52,7 @@ const LinkedinCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="linkedin"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -97,6 +98,7 @@ const LinkedinCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="linkedin"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -143,6 +145,7 @@ const LinkedinCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="linkedin"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -186,6 +189,7 @@ const LinkedinCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="linkedin"
+						cardRef={cardRef}
 					/>
 				</div>
 			);

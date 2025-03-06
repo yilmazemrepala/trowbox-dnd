@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
+import { LuRectangleVertical, LuRectangleHorizontal } from "react-icons/lu";
+import { PiRectangleBold } from "react-icons/pi";
+import { TbSquareDashed } from "react-icons/tb";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { Separator } from "@/components/ui/separator";
 
 interface HoverCardProps {
 	isHovered: boolean;
@@ -9,26 +14,30 @@ interface HoverCardProps {
 		left: number;
 	};
 	cardType: string;
+	cardRef: React.RefObject<HTMLDivElement>;
+	selected: string;
 }
 
 export const HoverCard = ({
 	isHovered,
-	title,
 	position,
-	cardType,
+	// cardType,
+	cardRef,
+	selected,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
+	const hoverCardRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const updatePosition = () => {
-			// Calculate position to show hover card below the main card
-			const top = position.top; // Add small offset from the bottom of the card
-			const left = position.left;
+			if (!cardRef.current || !hoverCardRef.current) return;
+			const rect = cardRef.current.getBoundingClientRect();
+			const hoverWidth = hoverCardRef.current.offsetWidth;
 
-			setCardPosition({
-				top,
-				left,
-			});
+			const top = rect.bottom + window.scrollY + 4;
+			const left = rect.left + rect.width / 2 - hoverWidth / 2;
+
+			setCardPosition({ top, left });
 		};
 
 		updatePosition();
@@ -39,24 +48,38 @@ export const HoverCard = ({
 			window.removeEventListener("scroll", updatePosition);
 			window.removeEventListener("resize", updatePosition);
 		};
-	}, [position]);
+	}, [position, cardRef]);
 
 	if (!isHovered) return null;
 
 	return createPortal(
 		<div
-			className="absolute z-[999] w-[280px] bg-white border border-gray-200 rounded-xl shadow-lg p-4"
+			ref={hoverCardRef}
+			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-4"
 			style={{
 				top: `${cardPosition.top}px`,
 				left: `${cardPosition.left}px`,
 			}}>
-			<div className="flex flex-col gap-3">
-				<div className="flex items-center gap-3">
-					<div className="flex flex-col">
-						<span className="font-medium text-sm">{title}</span>
-						<span className="text-gray-500 text-xs">{cardType}</span>
-					</div>
-				</div>
+			<div className="flex flex-row flex-1 no-wrap gap-3 items-center">
+				<span className={selected === "vertical" ? "selected" : ""}>
+					<LuRectangleVertical className="text-white" />
+				</span>
+				<span className={selected === "horizontal" ? "selected" : ""}>
+					<LuRectangleHorizontal className="text-white" />
+				</span>
+				<span className={selected === "bold" ? "selected" : ""}>
+					<PiRectangleBold className="text-white" />
+				</span>
+				<span className={selected === "dashed" ? "selected" : ""}>
+					<TbSquareDashed className="text-white" />
+				</span>
+				<Separator
+					orientation="vertical"
+					className=" !h-2 !bg-gray-500 !text-gray-500"
+				/>
+				<span className={selected === "dots" ? "selected" : ""}>
+					<HiDotsHorizontal className="text-white" />
+				</span>
 			</div>
 		</div>,
 		document.body

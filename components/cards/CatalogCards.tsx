@@ -52,6 +52,7 @@ const CatalogCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="catalog"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -97,6 +98,7 @@ const CatalogCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="catalog"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -143,6 +145,7 @@ const CatalogCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="catalog"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -187,6 +190,7 @@ const CatalogCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="catalog"
+						cardRef={cardRef}
 					/>
 				</div>
 			);

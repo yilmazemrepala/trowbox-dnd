@@ -68,6 +68,7 @@ const InstagramCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="instagram"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -134,6 +135,7 @@ const InstagramCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="instagram"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -191,6 +193,7 @@ const InstagramCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="instagram"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -251,6 +254,7 @@ const InstagramCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="instagram"
+						cardRef={cardRef}
 					/>
 				</div>
 			);

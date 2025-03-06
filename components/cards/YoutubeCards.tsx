@@ -53,6 +53,7 @@ const YoutubeCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="youtube"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -105,6 +106,7 @@ const YoutubeCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="youtube"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -156,6 +158,7 @@ const YoutubeCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="youtube"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
@@ -208,6 +211,7 @@ const YoutubeCards = memo(
 						title={title}
 						position={hoverCardPosition}
 						cardType="youtube"
+						cardRef={cardRef}
 					/>
 				</div>
 			);
