@@ -58,33 +58,33 @@ export const HoverCard = ({
 
 	const handleIconClick = (iconType: string, e: React.MouseEvent) => {
 		e.stopPropagation();
+		e.preventDefault();
 		setActiveIcon(activeIcon === iconType ? null : iconType);
 		setIsHovered(true);
 		console.log(`Clicked on ${iconType}`);
 	};
 
 	const getIconClassName = (iconType: string) => {
-		return `transition-colors relative ${
+		return `transition-colors ${
 			activeIcon === iconType ? "text-black" : "text-white hover:text-gray-300"
-		}`;
+		} text-lg`;
 	};
 
 	const getSpanClassName = (iconType: string) => {
-		return `cursor-pointer relative ${
-			activeIcon === iconType
-				? "before:absolute before:content-[''] before:bg-white before:w-[140%] before:h-[140%] before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-sm before:-z-10"
-				: ""
+		return `cursor-pointer relative p-1.5 flex items-center justify-center rounded-sm ${
+			activeIcon === iconType ? "bg-white" : "hover:bg-gray-800"
 		}`;
 	};
 
 	return createPortal(
 		<div
 			ref={hoverCardRef}
-			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-4"
+			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-4 select-none"
 			style={{
 				top: `${cardPosition.top}px`,
 				left: `${cardPosition.left}px`,
 			}}
+			onMouseDown={(e) => e.stopPropagation()}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={(e) => {
 				if (!hoverCardRef.current?.contains(e.relatedTarget as Node)) {
