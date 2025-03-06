@@ -29,7 +29,7 @@ const YoutubeCards = memo(
 						</span>
 					</div>
 					<div className="mt-4">
-						{channelName && (
+						{!videoUrl && (
 							<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 								Subscribe
 							</button>
@@ -62,7 +62,7 @@ const YoutubeCards = memo(
 							/>
 						</div>
 
-						{channelName && (
+						{!videoUrl && (
 							<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 								Subscribe
 							</button>
@@ -85,7 +85,7 @@ const YoutubeCards = memo(
 								{videoUrl ? videoUrl : channelName}
 							</span>
 						</div>
-						{channelName && (
+						{!videoUrl && (
 							<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 								Subscribe
 							</button>
@@ -117,7 +117,7 @@ const YoutubeCards = memo(
 								{videoUrl ? videoUrl : channelName}
 							</span>
 						</div>
-						{channelName && (
+						{!videoUrl && (
 							<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
 								Subscribe
 							</button>

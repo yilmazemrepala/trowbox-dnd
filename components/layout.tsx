@@ -1,5 +1,5 @@
 "use client";
-import { memo, useMemo, useRef, useEffect, useState } from "react";
+import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCards } from "@/components/cards/InstagramCards";
@@ -7,60 +7,18 @@ import { SpotifyCards } from "@/components/cards/SpotifyCards";
 import { CatalogCards } from "@/components/cards/CatalogCards";
 import "@/public/index.css";
 import { YoutubeCards } from "@/components/cards/YoutubeCards";
+import { LinkedinCards } from "./cards/LinkedinCards";
+import { useDragHandler } from "@/utils/dragHelper";
 
 const Layout = () => {
+	const allCards = [...cardData.lg];
+
+	const { onDragStart, onDragStop } = useDragHandler(allCards);
+
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
 		[]
 	);
-
-	// Tüm card'ları tek bir dizide topla
-	const allCards = [...cardData.lg];
-
-	// Track the currently dragged card type
-	const [draggedCardType, setDraggedCardType] = useState(null);
-
-	// Handle drag start event
-	const onDragStart = (layout, oldItem, newItem, placeholder, e, element) => {
-		// Find the card data to determine its type
-		const cardItem = allCards.find((card) => card.i === oldItem.i);
-		if (cardItem) {
-			setDraggedCardType(cardItem.type);
-		}
-	};
-
-	// Handle drag stop event
-	const onDragStop = () => {
-		setDraggedCardType(null);
-	};
-
-	// Add custom class to placeholder based on dragged card type
-	useEffect(() => {
-		if (!draggedCardType) return;
-
-		const placeholder = document.querySelector(
-			".react-grid-item.react-grid-placeholder"
-		);
-		if (placeholder) {
-			if (draggedCardType === "spotify") {
-				placeholder.classList.add("spotify-placeholder");
-			} else if (draggedCardType === "instagram") {
-				placeholder.classList.add("instagram-placeholder");
-			}
-		}
-
-		return () => {
-			const placeholder = document.querySelector(
-				".react-grid-item.react-grid-placeholder"
-			);
-			if (placeholder) {
-				placeholder.classList.remove(
-					"spotify-placeholder",
-					"instagram-placeholder"
-				);
-			}
-		};
-	}, [draggedCardType]);
 
 	return (
 		<div className="w-screen m-auto flex justify-between b-10">
@@ -97,6 +55,8 @@ const Block = memo(({ keyProp, ...card }: any) => {
 			return <CatalogCards {...card} />;
 		case "youtube":
 			return <YoutubeCards {...card} />;
+		case "linkedin":
+			return <LinkedinCards {...card} />;
 		default:
 			return (
 				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">
