@@ -10,8 +10,34 @@ import { YoutubeCards } from "@/components/cards/YoutubeCards";
 import { LinkedinCards } from "./cards/LinkedinCards";
 import { useDragHandler } from "@/utils/dragHelper";
 
+interface CardProps {
+	i: string;
+	type: string;
+	isResizable: boolean;
+	size: "TALL" | "SMALL" | "MEDIUM" | "LARGE";
+	title: string;
+	songCount?: number;
+	imageUrl?: string;
+	channelName?: string;
+	videoUrl?: string;
+	artist?: string;
+	songs?: {
+		title: string;
+		artist: string;
+		duration: string;
+	}[];
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	keyProp?: string;
+}
+
 const Layout = () => {
-	const allCards = [...cardData.lg];
+	const allCards = cardData.lg.map((card) => ({
+		...card,
+		size: card.size as "TALL" | "SMALL" | "MEDIUM" | "LARGE",
+	}));
 
 	const { onDragStart, onDragStop } = useDragHandler(allCards);
 
@@ -45,7 +71,7 @@ const Layout = () => {
 	);
 };
 
-const Block = memo(({ keyProp, ...card }: any) => {
+const Block = memo(({ keyProp, ...card }: CardProps) => {
 	switch (card.type) {
 		case "instagram":
 			return <InstagramCards {...card} />;
