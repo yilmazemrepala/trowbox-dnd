@@ -19,4 +19,5 @@ export interface CardProps {
 	w: number;
 	h: number;
 	keyProp?: string;
+	isDragging?: boolean;
 }

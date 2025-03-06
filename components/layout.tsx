@@ -53,7 +53,7 @@ const Layout = () => {
 						key={card.i}
 						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
 						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
-						<Block keyProp={card.i} {...card} isDragging={isDragging} />
+						<Block keyProp={card.i} isDragging={isDragging} {...card} />
 					</div>
 				))}
 			</ResponsiveReactGridLayout>
@@ -61,14 +61,14 @@ const Layout = () => {
 	);
 };
 
-const Block = memo(({ keyProp, ...card }: CardProps) => {
+const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 	switch (card.type) {
 		case "instagram":
-			return <InstagramCards {...card} />;
+			return <InstagramCards {...card} isDragging={isDragging} />;
 		case "spotify":
 			return <SpotifyCards {...card} />;
 		case "catalog":
-			return <CatalogCards {...card} />;
+			return <CatalogCards {...card} isDragging={isDragging} />;
 		case "youtube":
 			return <YoutubeCards {...card} />;
 		case "linkedin":

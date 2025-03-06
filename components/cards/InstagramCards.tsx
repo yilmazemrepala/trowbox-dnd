@@ -1,9 +1,10 @@
 import { Trash } from "lucide-react";
-import React, { memo, useState, useRef, useEffect } from "react";
+import React, { memo, useRef } from "react";
 import { FaInstagram } from "react-icons/fa6";
+// import Image from "next/image";
 
 import { HoverCard } from "@/components/ui/hover-card";
-// import Image from "next/image";
+import { useHoverCard } from "@/hooks/useHoverCard";
 
 interface InstagramCardProps {
 	size: "SMALL" | "MEDIUM" | "LARGE" | "TALL";
@@ -15,45 +16,25 @@ interface InstagramCardProps {
 
 const InstagramCards = memo(
 	({ size, title, isDragging }: InstagramCardProps) => {
-		const [isHovered, setIsHovered] = useState(false);
 		const cardRef = useRef<HTMLDivElement>(null);
-		const [hoverCardPosition, setHoverCardPosition] = useState({
-			top: 0,
-			left: 0,
-		});
 
-		useEffect(() => {
-			if (isDragging) {
-				setIsHovered(false);
-			}
-		}, [isDragging]);
-
-		useEffect(() => {
-			if (isHovered && cardRef.current) {
-				const rect = cardRef.current.getBoundingClientRect();
-				setHoverCardPosition({
-					top: rect.bottom + window.scrollY + 4,
-					left: rect.left + window.scrollX,
-				});
-			}
-		}, [isHovered]);
-
-		const handleMouseEnter = () => {
-			if (!isDragging) {
-				setIsHovered(true);
-			}
-		};
+		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
+			useHoverCard({ ref: cardRef, isDragging });
 
 		if (size === "SMALL") {
 			return (
 				<div
-					ref={cardRef}
 					className="relative size-full"
+					ref={cardRef}
 					onMouseEnter={handleMouseEnter}
-					onMouseLeave={() => setIsHovered(false)}>
+					onMouseLeave={handleMouseLeave}>
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
-						<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+						<div
+							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
+							rounded-full w-8 h-8 flex items-center justify-center p-1.5 
+							${isDragging ? "hidden" : "opacity-0 group-hover:opacity-100"} 
+							transition-opacity duration-200`}>
 							<Trash className="w-10 h-10 text-black" />
 						</div>
 						<div className="flex flex-col items-start gap-5">
@@ -86,6 +67,7 @@ const InstagramCards = memo(
 						isHovered={isHovered}
 						title={title}
 						position={hoverCardPosition}
+						cardType="instagram"
 					/>
 				</div>
 			);
@@ -97,10 +79,14 @@ const InstagramCards = memo(
 					ref={cardRef}
 					className="relative size-full"
 					onMouseEnter={handleMouseEnter}
-					onMouseLeave={() => setIsHovered(false)}>
+					onMouseLeave={handleMouseLeave}>
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4 relative group`}>
-						<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+						<div
+							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
+							rounded-full w-8 h-8 flex items-center justify-center p-1.5 
+							${isDragging ? "hidden" : "opacity-0 group-hover:opacity-100"} 
+							transition-opacity duration-200`}>
 							<Trash className="w-10 h-10 text-black" />
 						</div>
 						<div className="flex flex-col items-start gap-2">
@@ -147,6 +133,7 @@ const InstagramCards = memo(
 						isHovered={isHovered}
 						title={title}
 						position={hoverCardPosition}
+						cardType="instagram"
 					/>
 				</div>
 			);
@@ -158,10 +145,14 @@ const InstagramCards = memo(
 					ref={cardRef}
 					className="relative size-full"
 					onMouseEnter={handleMouseEnter}
-					onMouseLeave={() => setIsHovered(false)}>
+					onMouseLeave={handleMouseLeave}>
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6 relative group`}>
-						<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+						<div
+							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
+							rounded-full w-8 h-8 flex items-center justify-center p-1.5 
+							${isDragging ? "hidden" : "opacity-0 group-hover:opacity-100"} 
+							transition-opacity duration-200`}>
 							<Trash className="w-10 h-10 text-black" />
 						</div>
 						<div className="flex flex-col gap-1">
@@ -199,6 +190,7 @@ const InstagramCards = memo(
 						isHovered={isHovered}
 						title={title}
 						position={hoverCardPosition}
+						cardType="instagram"
 					/>
 				</div>
 			);
@@ -210,10 +202,14 @@ const InstagramCards = memo(
 					ref={cardRef}
 					className="relative size-full"
 					onMouseEnter={handleMouseEnter}
-					onMouseLeave={() => setIsHovered(false)}>
+					onMouseLeave={handleMouseLeave}>
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
-						<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+						<div
+							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
+							rounded-full w-8 h-8 flex items-center justify-center p-1.5 
+							${isDragging ? "hidden" : "opacity-0 group-hover:opacity-100"} 
+							transition-opacity duration-200`}>
 							<Trash className="w-10 h-10 text-black" />
 						</div>
 						<div className="flex flex-col gap-5">
@@ -254,6 +250,7 @@ const InstagramCards = memo(
 						isHovered={isHovered}
 						title={title}
 						position={hoverCardPosition}
+						cardType="instagram"
 					/>
 				</div>
 			);

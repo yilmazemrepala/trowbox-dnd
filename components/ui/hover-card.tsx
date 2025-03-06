@@ -8,9 +8,15 @@ interface HoverCardProps {
 		top: number;
 		left: number;
 	};
+	cardType: string;
 }
 
-export const HoverCard = ({ isHovered, title, position }: HoverCardProps) => {
+export const HoverCard = ({
+	isHovered,
+	title,
+	position,
+	cardType,
+}: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
 
 	useEffect(() => {
@@ -55,11 +61,11 @@ export const HoverCard = ({ isHovered, title, position }: HoverCardProps) => {
 					<div className="w-12 h-12 rounded-full bg-gray-100"></div>
 					<div className="flex flex-col">
 						<span className="font-medium text-sm">{title}</span>
-						<span className="text-gray-500 text-xs">Instagram Account</span>
+						<span className="text-gray-500 text-xs">{cardType}</span>
 					</div>
 				</div>
 
-				<div className="flex items-center justify-between border-t border-b border-gray-100 py-2">
+				{/* <div className="flex items-center justify-between border-t border-b border-gray-100 py-2">
 					<div className="flex flex-col items-center">
 						<span className="font-medium text-sm">1.2K</span>
 						<span className="text-gray-500 text-xs">Posts</span>
@@ -77,6 +83,7 @@ export const HoverCard = ({ isHovered, title, position }: HoverCardProps) => {
 				<p className="text-sm text-gray-600">
 					Instagram account description goes here. This is a sample bio text.
 				</p>
+			</div> */}
 			</div>
 		</div>,
 		document.body
