@@ -2,25 +2,19 @@ import React, { memo, useRef } from "react";
 import Image from "next/image";
 import { SiAdobeacrobatreader } from "react-icons/si";
 import { Trash } from "lucide-react";
+import { CardProps } from "@/types/cardProps.types";
 import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
 
-interface CatalogCardProps {
-	size: "SMALL" | "MEDIUM" | "LARGE" | "TALL";
-	title: string;
-	imageUrl?: string;
-	isDragging?: boolean;
-}
-
 const CatalogCards = memo(
-	({ size, title, imageUrl, isDragging }: CatalogCardProps) => {
-		const cardRef = useRef<HTMLDivElement>(null);
-		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
-			useHoverCard({ ref: cardRef, isDragging });
-
+	({ size, title, imageUrl, isDragging }: CardProps) => {
 		// Varsayılan katalog görseli
 		const defaultImage = "https://placehold.co/400x400";
 		const catalogImage = imageUrl || defaultImage;
+
+		const cardRef = useRef<HTMLDivElement>(null);
+		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
+			useHoverCard({ ref: cardRef, isDragging });
 
 		if (size === "SMALL") {
 			return (
@@ -40,7 +34,7 @@ const CatalogCards = memo(
 						<div className="flex flex-col items-start gap-5">
 							<div className="flex flex-col gap-2">
 								<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-red-700">
-									<SiAdobeacrobatreader className="h-6 w-6 text-white" />{" "}
+									<SiAdobeacrobatreader className="h-6 w-6 text-white" />
 								</div>
 								<span className="font-base truncate text-sm mt-1.5">
 									{title}

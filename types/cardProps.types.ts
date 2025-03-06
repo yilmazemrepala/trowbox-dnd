@@ -8,7 +8,7 @@ export interface CardProps {
 	imageUrl?: string;
 	channelName?: string;
 	videoUrl?: string;
-	artist?: string;
+	songArtist?: string;
 	songs?: {
 		title: string;
 		artist: string;

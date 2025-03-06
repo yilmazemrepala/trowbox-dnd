@@ -66,13 +66,13 @@ const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 		case "instagram":
 			return <InstagramCards {...card} isDragging={isDragging} />;
 		case "spotify":
-			return <SpotifyCards {...card} />;
+			return <SpotifyCards {...card} isDragging={isDragging} />;
 		case "catalog":
 			return <CatalogCards {...card} isDragging={isDragging} />;
 		case "youtube":
-			return <YoutubeCards {...card} />;
+			return <YoutubeCards {...card} isDragging={isDragging} />;
 		case "linkedin":
-			return <LinkedinCards {...card} />;
+			return <LinkedinCards {...card} isDragging={isDragging} />;
 		default:
 			return (
 				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">
