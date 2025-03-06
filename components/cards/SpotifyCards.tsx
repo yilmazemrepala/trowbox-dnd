@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useCallback } from "react";
 import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
 import { FaSpotify } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { Trash } from "lucide-react";
 import { CardProps } from "@/types/cardProps.types";
 import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
+import { FixedSizeList as List } from "react-window";
 
 const SpotifyCards = memo(
 	({
@@ -22,6 +23,11 @@ const SpotifyCards = memo(
 		const cardRef = useRef<HTMLDivElement>(null);
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
 			useHoverCard({ ref: cardRef, isDragging });
+
+		// Play butonu için callback
+		const handlePlay = useCallback(() => {
+			console.log("Playing...");
+		}, []);
 
 		if (size === "MEDIUM") {
 			return (
@@ -50,7 +56,9 @@ const SpotifyCards = memo(
 							{songArtist && (
 								<p className="text-xs text-gray-600">{songArtist}</p>
 							)}
-							<button className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex w-fit items-center gap-1.5 mt-1">
+							<button
+								onClick={handlePlay}
+								className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex items-center gap-1.5">
 								<IoPlay className="text-sm" />
 								Play
 							</button>
@@ -125,7 +133,9 @@ const SpotifyCards = memo(
 							</div>
 
 							<div className="flex gap-3">
-								<button className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex items-center gap-1.5">
+								<button
+									onClick={handlePlay}
+									className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex items-center gap-1.5">
 									<IoPlay className="text-sm" />
 									Play
 								</button>
@@ -141,39 +151,48 @@ const SpotifyCards = memo(
 									width={140}
 									height={140}
 									className="rounded-lg"
+									priority={true}
 								/>
 							</div>
 						)}
 
 						{/* Şarkı Listesi */}
 						{songs && !imageUrl && (
-							<div className="space-y-4 pr-4 max-h-[200px]">
-								{songs?.map((song, index) => (
-									<div
-										key={index}
-										className="flex items-center gap-4 relative group/song">
-										<div className="relative ">
-											<Image
-												src={`https://placehold.co/38x38`}
-												alt={song.title}
-												width={38}
-												height={38}
-												className="rounded-lg transition-opacity duration-300 group-hover/song:opacity-0"
-											/>
-											<button className="absolute inset-0 bg-green-500 text-white opacity-0 group-hover/song:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full">
-												<IoPlay className="h-4 w-4" />
-											</button>
+							<List
+								height={200}
+								itemCount={songs.length}
+								itemSize={60}
+								width="100%">
+								{({ index, style }) => (
+									<div style={style}>
+										<div className="flex items-center gap-4 relative group/song">
+											<div className="relative ">
+												<Image
+													src={`https://placehold.co/38x38`}
+													alt={songs[index].title}
+													width={38}
+													height={38}
+													className="rounded-lg transition-opacity duration-300 group-hover/song:opacity-0"
+												/>
+												<button className="absolute inset-0 bg-green-500 text-white opacity-0 group-hover/song:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-full">
+													<IoPlay className="h-4 w-4" />
+												</button>
+											</div>
+											<div className="flex-1">
+												<p className="text-sm font-normal">
+													{songs[index].title}
+												</p>
+												<p className="text-xs text-gray-600">
+													{songs[index].artist}
+												</p>
+											</div>
+											<span className="text-xs text-gray-600 pr-1">
+												{songs[index].duration}
+											</span>
 										</div>
-										<div className="flex-1">
-											<p className="text-sm font-normal">{song.title}</p>
-											<p className="text-xs text-gray-600">{song.artist}</p>
-										</div>
-										<span className="text-xs text-gray-600 pr-1">
-											{song.duration}
-										</span>
 									</div>
-								))}
-							</div>
+								)}
+							</List>
 						)}
 					</div>
 					<HoverCard
@@ -227,7 +246,9 @@ const SpotifyCards = memo(
 						</div>
 
 						<div className="flex gap-3">
-							<button className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex items-center gap-1.5">
+							<button
+								onClick={handlePlay}
+								className="bg-[#1DD760] text-white px-4 py-1.5 rounded-full text-sm flex items-center gap-1.5">
 								<IoPlay className="text-sm" />
 								Play
 							</button>
@@ -271,7 +292,9 @@ const SpotifyCards = memo(
 								<p className="text-xs text-gray-600">{songArtist}</p>
 							)}
 						</div>
-						<button className="bg-[#1DD760] text-white px-4 py-1 w-fit rounded-full text-sm flex items-center justify-center mt-2">
+						<button
+							onClick={handlePlay}
+							className="bg-[#1DD760] text-white px-4 py-1 w-fit rounded-full text-sm flex items-center justify-center mt-2">
 							<IoPlay className="text-sm" />
 							Play
 						</button>

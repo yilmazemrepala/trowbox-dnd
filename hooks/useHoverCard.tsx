@@ -1,4 +1,5 @@
-import { useState, useEffect, RefObject } from "react";
+import { useState, useEffect, RefObject, useCallback } from "react";
+import { debounce } from "lodash";
 
 // Hover pozisyonu için type
 interface HoverPosition {
@@ -37,15 +38,34 @@ export const useHoverCard = ({ ref, isDragging }: UseHoverCardProps) => {
 		}
 	}, [isDragging]);
 
-	const handleMouseEnter = () => {
-		if (!isDragging) {
-			setIsHovered(true);
-		}
-	};
+	useEffect(() => {
+		const handleDragStart = () => setIsHovered(false);
+		const handleDragEnd = () => setIsHovered(true);
 
-	const handleMouseLeave = () => {
-		setIsHovered(false);
-	};
+		window.addEventListener("dragstart", handleDragStart);
+		window.addEventListener("dragend", handleDragEnd);
+
+		return () => {
+			window.removeEventListener("dragstart", handleDragStart);
+			window.removeEventListener("dragend", handleDragEnd);
+		};
+	}, []);
+
+	const handleMouseEnter = useCallback(
+		debounce(() => {
+			if (!isDragging) {
+				setIsHovered(true);
+			}
+		}, 50),
+		[isDragging]
+	);
+
+	const handleMouseLeave = useCallback(
+		debounce(() => {
+			setIsHovered(false);
+		}, 50),
+		[]
+	);
 
 	return {
 		isHovered,
