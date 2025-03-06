@@ -67,7 +67,7 @@ export const HoverCard = ({
 	const getIconClassName = (iconType: string) => {
 		return `transition-colors ${
 			activeIcon === iconType ? "text-black" : "text-white hover:text-gray-300"
-		} text-lg`;
+		}`;
 	};
 
 	const getSpanClassName = (iconType: string) => {
@@ -79,7 +79,7 @@ export const HoverCard = ({
 	return createPortal(
 		<div
 			ref={hoverCardRef}
-			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-4 select-none"
+			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-2 select-none"
 			style={{
 				top: `${cardPosition.top}px`,
 				left: `${cardPosition.left}px`,
@@ -91,30 +91,40 @@ export const HoverCard = ({
 					setIsHovered(false);
 				}
 			}}>
-			<div className="flex flex-row flex-1 no-wrap gap-3 items-center">
+			<div className="flex flex-row flex-1 no-wrap gap-1 items-center">
 				<span
-					onClick={(e) => handleIconClick("vertical", e)}
-					className={getSpanClassName("vertical")}>
-					<LuRectangleVertical className={getIconClassName("vertical")} />
+					onClick={(e) => handleIconClick("squareSmall", e)}
+					className={getSpanClassName("squareSmall")}>
+					<TbSquareDashed
+						className={`${getIconClassName(
+							"squareSmall"
+						)} h-3 w-3 stroke-[3.5]`}
+					/>
 				</span>
 				<span
 					onClick={(e) => handleIconClick("horizontal", e)}
 					className={getSpanClassName("horizontal")}>
-					<LuRectangleHorizontal className={getIconClassName("horizontal")} />
+					<LuRectangleHorizontal
+						className={`${getIconClassName("horizontal")} h-5 w-5 stroke-[2.5]`}
+					/>
 				</span>
 				<span
-					onClick={(e) => handleIconClick("rectangle", e)}
-					className={getSpanClassName("rectangle")}>
-					<PiRectangleBold className={getIconClassName("rectangle")} />
+					onClick={(e) => handleIconClick("vertical", e)}
+					className={getSpanClassName("vertical")}>
+					<LuRectangleVertical
+						className={`${getIconClassName("vertical")} h-5 w-5 stroke-[2.5]`}
+					/>
 				</span>
 				<span
 					onClick={(e) => handleIconClick("square", e)}
 					className={getSpanClassName("square")}>
-					<TbSquareDashed className={getIconClassName("square")} />
+					<TbSquareDashed
+						className={`${getIconClassName("square")} h-5 w-5 stroke-[2.5]`}
+					/>
 				</span>
 				<Separator
 					orientation="vertical"
-					className=" !h-2 !bg- !text-gray-500"
+					className=" !h-3 !bg- !text-gray-500"
 				/>
 				<span
 					onClick={(e) => handleIconClick("dots", e)}
