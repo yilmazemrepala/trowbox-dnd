@@ -2,6 +2,7 @@
 import "@/public/index.css";
 import { memo, useMemo, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import type { Layout } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCards } from "@/components/cards/InstagramCards";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
@@ -21,14 +22,14 @@ const Layout = () => {
 
 	const { onDragStart, onDragStop } = useDragHandler(allCards);
 
-	const handleDragStart = (...args: any[]) => {
+	const handleDragStart = (layout: Layout[], oldItem: Layout) => {
 		setIsDragging(true);
-		onDragStart?.(...args);
+		onDragStart?.(layout, oldItem);
 	};
 
-	const handleDragStop = (...args: any[]) => {
+	const handleDragStop = () => {
 		setIsDragging(false);
-		onDragStop?.(...args);
+		onDragStop?.();
 	};
 
 	const ResponsiveReactGridLayout = useMemo(
