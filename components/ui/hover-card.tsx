@@ -18,13 +18,19 @@ interface HoverCardProps {
 }
 
 export const HoverCard = ({
-	isHovered,
+	isHovered: initialIsHovered,
 	position,
 	// cardType,
 	cardRef,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
+	const [isHovered, setIsHovered] = useState(initialIsHovered);
+	const [activeIcon, setActiveIcon] = useState<string | null>(null);
 	const hoverCardRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		setIsHovered(initialIsHovered);
+	}, [initialIsHovered]);
 
 	useEffect(() => {
 		const updatePosition = () => {
@@ -50,6 +56,27 @@ export const HoverCard = ({
 
 	if (!isHovered) return null;
 
+	const handleIconClick = (iconType: string, e: React.MouseEvent) => {
+		e.stopPropagation();
+		setActiveIcon(activeIcon === iconType ? null : iconType);
+		setIsHovered(true);
+		console.log(`Clicked on ${iconType}`);
+	};
+
+	const getIconClassName = (iconType: string) => {
+		return `transition-colors relative ${
+			activeIcon === iconType ? "text-black" : "text-white hover:text-gray-300"
+		}`;
+	};
+
+	const getSpanClassName = (iconType: string) => {
+		return `cursor-pointer relative ${
+			activeIcon === iconType
+				? "before:absolute before:content-[''] before:bg-white before:w-[140%] before:h-[140%] before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-sm before:-z-10"
+				: ""
+		}`;
+	};
+
 	return createPortal(
 		<div
 			ref={hoverCardRef}
@@ -57,26 +84,42 @@ export const HoverCard = ({
 			style={{
 				top: `${cardPosition.top}px`,
 				left: `${cardPosition.left}px`,
+			}}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={(e) => {
+				if (!hoverCardRef.current?.contains(e.relatedTarget as Node)) {
+					setIsHovered(false);
+				}
 			}}>
 			<div className="flex flex-row flex-1 no-wrap gap-3 items-center">
-				<span>
-					<LuRectangleVertical className="text-white" />
+				<span
+					onClick={(e) => handleIconClick("vertical", e)}
+					className={getSpanClassName("vertical")}>
+					<LuRectangleVertical className={getIconClassName("vertical")} />
 				</span>
-				<span>
-					<LuRectangleHorizontal className="text-white" />
+				<span
+					onClick={(e) => handleIconClick("horizontal", e)}
+					className={getSpanClassName("horizontal")}>
+					<LuRectangleHorizontal className={getIconClassName("horizontal")} />
 				</span>
-				<span>
-					<PiRectangleBold className="text-white" />
+				<span
+					onClick={(e) => handleIconClick("rectangle", e)}
+					className={getSpanClassName("rectangle")}>
+					<PiRectangleBold className={getIconClassName("rectangle")} />
 				</span>
-				<span>
-					<TbSquareDashed className="text-white" />
+				<span
+					onClick={(e) => handleIconClick("square", e)}
+					className={getSpanClassName("square")}>
+					<TbSquareDashed className={getIconClassName("square")} />
 				</span>
 				<Separator
 					orientation="vertical"
 					className=" !h-2 !bg- !text-gray-500"
 				/>
-				<span>
-					<HiDotsHorizontal className="text-white" />
+				<span
+					onClick={(e) => handleIconClick("dots", e)}
+					className={getSpanClassName("dots")}>
+					<HiDotsHorizontal className={getIconClassName("dots")} />
 				</span>
 			</div>
 		</div>,
