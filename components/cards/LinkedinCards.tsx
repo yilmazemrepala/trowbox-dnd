@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import { SiLinkedin } from "react-icons/si";
-
+import { Trash } from "lucide-react";
 interface LinkedinCardProps {
 	size: "SMALL" | "MEDIUM" | "LARGE" | "TALL";
 	title: string;
@@ -15,7 +15,10 @@ const LinkedinCards = memo(({ size, title, imageUrl }: LinkedinCardProps) => {
 
 	if (size === "SMALL") {
 		return (
-			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6">
+			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col items-start gap-5">
 					<div className="flex flex-col gap-2">
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-[#0A66C2]">
@@ -37,7 +40,10 @@ const LinkedinCards = memo(({ size, title, imageUrl }: LinkedinCardProps) => {
 
 	if (size === "TALL") {
 		return (
-			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6">
+			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col items-start gap-5">
 					<div className="flex flex-col gap-2 mb-8">
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-[#0A66C2]">
@@ -63,7 +69,10 @@ const LinkedinCards = memo(({ size, title, imageUrl }: LinkedinCardProps) => {
 
 	if (size === "MEDIUM") {
 		return (
-			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-6">
+			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-6 relative group">
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col justify-between">
 					<div>
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-[#0A66C2]">
@@ -90,7 +99,10 @@ const LinkedinCards = memo(({ size, title, imageUrl }: LinkedinCardProps) => {
 
 	if (size === "LARGE") {
 		return (
-			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6">
+			<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-row items-start justify-between mb-8">
 					<div className="flex flex-col gap-2">
 						<div className="flex flex-row items-center gap-2 rounded-xl h-10 w-10 justify-center bg-[#0A66C2]">

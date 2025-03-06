@@ -293,5 +293,17 @@ export const cardData = {
 			w: 2,
 			h: 2,
 		},
+		{
+			i: "23",
+			isResizable: false,
+			type: CardTypes.Spotify,
+			size: "SMALL",
+			title: "Spotify",
+			songArtist: "Cem Karaca",
+			x: 2,
+			y: 14,
+			w: 1,
+			h: 1,
+		},
 	],
 };

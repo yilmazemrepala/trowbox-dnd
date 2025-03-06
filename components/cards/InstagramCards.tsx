@@ -1,3 +1,4 @@
+import { Trash } from "lucide-react";
 import React, { memo } from "react";
 import { FaInstagram } from "react-icons/fa6";
 // import Image from "next/image";
@@ -13,7 +14,10 @@ const InstagramCards = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "SMALL") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 `}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col items-start gap-5">
 					<div className="flex flex-col gap-2">
 						<div
@@ -43,7 +47,10 @@ const InstagramCards = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "MEDIUM") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4 `}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4 relative group`}>
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col items-start gap-2">
 					<div className="flex flex-col gap-2">
 						<div
@@ -89,7 +96,10 @@ const InstagramCards = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "TALL") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6`}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6 relative group`}>
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col gap-1">
 					<div className="flex flex-col gap-1">
 						<div
@@ -126,7 +136,10 @@ const InstagramCards = memo(({ size, title }: InstagramCardProps) => {
 	if (size === "LARGE") {
 		return (
 			<div
-				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 `}>
+				className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
+				<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+					<Trash className="w-10 h-10 text-black" />
+				</div>
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-row items-start justify-between">
 						<div className="flex flex-col gap-2">

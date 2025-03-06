@@ -1,11 +1,11 @@
 "use client";
+import "@/public/index.css";
 import { memo, useMemo } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCards } from "@/components/cards/InstagramCards";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
 import { CatalogCards } from "@/components/cards/CatalogCards";
-import "@/public/index.css";
 import { YoutubeCards } from "@/components/cards/YoutubeCards";
 import { LinkedinCards } from "./cards/LinkedinCards";
 import { useDragHandler } from "@/utils/dragHelper";
