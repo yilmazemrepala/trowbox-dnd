@@ -1,6 +1,6 @@
 "use client";
 import "@/public/index.css";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { cardData } from "@/utils/layout.helper";
 import { InstagramCards } from "@/components/cards/InstagramCards";
@@ -12,12 +12,24 @@ import { useDragHandler } from "@/utils/dragHelper";
 import { CardProps } from "@/types/cardProps.types";
 
 const Layout = () => {
+	const [isDragging, setIsDragging] = useState(false);
+
 	const allCards = cardData.lg.map((card) => ({
 		...card,
 		size: card.size as "TALL" | "SMALL" | "MEDIUM" | "LARGE",
 	}));
 
 	const { onDragStart, onDragStop } = useDragHandler(allCards);
+
+	const handleDragStart = (...args: any[]) => {
+		setIsDragging(true);
+		onDragStart?.(...args);
+	};
+
+	const handleDragStop = (...args: any[]) => {
+		setIsDragging(false);
+		onDragStop?.(...args);
+	};
 
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
@@ -34,14 +46,14 @@ const Layout = () => {
 				margin={[10, 10]}
 				layouts={cardData}
 				containerPadding={[10, 10]}
-				onDragStart={onDragStart}
-				onDragStop={onDragStop}>
+				onDragStart={handleDragStart}
+				onDragStop={handleDragStop}>
 				{allCards.map((card) => (
 					<div
 						key={card.i}
 						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
 						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
-						<Block keyProp={card.i} {...card} />
+						<Block keyProp={card.i} {...card} isDragging={isDragging} />
 					</div>
 				))}
 			</ResponsiveReactGridLayout>
