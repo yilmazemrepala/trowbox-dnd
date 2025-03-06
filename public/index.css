@@ -1,3 +1,8 @@
+.react-grid-layout {
+	overflow: hidden !important;
+	max-width: 100% !important;
+}
+
 .react-grid-item.react-grid-placeholder {
 	background: rgba(0, 0, 0, 0.438) none repeat scroll 0% 0%;
 	/* opacity: 0.07; */
@@ -18,6 +23,7 @@
 	/* transition: transform 500ms ease 0s !important; */
 	transition: visibility 100ms ease 0s;
 	/* will-change: transform; */
+	touch-action: none; /* Mobil cihazlarda taşmayı engeller */
 }
 
 /* Spotify card placeholder styles */

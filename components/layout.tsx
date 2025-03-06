@@ -40,7 +40,7 @@ const Layout = () => {
 	return (
 		<div className="w-screen m-auto flex justify-between b-10">
 			<ResponsiveReactGridLayout
-				className="m-auto w-[900px]"
+				className="m-auto max-w-[900px]"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
 				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
 				rowHeight={180}
@@ -48,7 +48,10 @@ const Layout = () => {
 				layouts={cardData}
 				containerPadding={[10, 10]}
 				onDragStart={handleDragStart}
-				onDragStop={handleDragStop}>
+				onDragStop={handleDragStop}
+				preventCollision={true} // sonradan ekledim
+				compactType={null} // sonradan ekledim
+			>
 				{allCards.map((card) => (
 					<div
 						key={card.i}
