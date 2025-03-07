@@ -5,24 +5,25 @@ import { Trash } from "lucide-react";
 import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
 import { CardProps } from "@/types/cardProps.types";
+import { motion } from "framer-motion";
 
 const LinkedinCards = memo(
 	({ i, size, title, imageUrl, isDragging }: CardProps) => {
-		// Varsayılan katalog görseli
 		const defaultImage = "https://placehold.co/400x400";
 		const catalogImage = imageUrl || defaultImage;
-
 		const cardRef = useRef<HTMLDivElement>(null);
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
 			useHoverCard({ ref: cardRef, isDragging });
 
-		if (size === "SMALL") {
-			return (
-				<div
-					className="size-full relative"
-					ref={cardRef}
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+		// CSS transitions ile minimal geçiş
+		const transitionStyle = {
+			transition: "opacity 100ms ease",
+		};
+
+		// Kart içeriğini render eden fonksiyon
+		const renderCardContent = () => {
+			if (size === "SMALL") {
+				return (
 					<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
 						<div
 							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
@@ -47,25 +48,11 @@ const LinkedinCards = memo(
 							</button>
 						</div>
 					</div>
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="linkedin"
-						cardRef={cardRef}
-						cardId={i}
-					/>
-				</div>
-			);
-		}
+				);
+			}
 
-		if (size === "TALL") {
-			return (
-				<div
-					className="size-full relative"
-					ref={cardRef}
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "TALL") {
+				return (
 					<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
 						<div
 							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
@@ -89,30 +76,16 @@ const LinkedinCards = memo(
 								/>
 							</div>
 
-							<button className="bg-[#0A66C2] hover:bg-[#004182] h-8 mt-8 w-fit text-white px-4 py-1  font-semibold text-xs rounded-full transition-colors">
+							<button className="bg-[#0A66C2] hover:bg-[#004182] h-8 mt-8 w-fit text-white px-4 py-1 font-semibold text-xs rounded-full transition-colors">
 								View
 							</button>
 						</div>
 					</div>
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="linkedin"
-						cardRef={cardRef}
-						cardId={i}
-					/>
-				</div>
-			);
-		}
+				);
+			}
 
-		if (size === "MEDIUM") {
-			return (
-				<div
-					className="size-full relative"
-					ref={cardRef}
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "MEDIUM") {
+				return (
 					<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-6 relative group">
 						<div
 							className={`remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white 
@@ -142,25 +115,11 @@ const LinkedinCards = memo(
 							/>
 						</div>
 					</div>
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="linkedin"
-						cardRef={cardRef}
-						cardId={i}
-					/>
-				</div>
-			);
-		}
+				);
+			}
 
-		if (size === "LARGE") {
-			return (
-				<div
-					className="size-full relative"
-					ref={cardRef}
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "LARGE") {
+				return (
 					<div className="size-full bg-[#F0F6F9] rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group">
 						<div className="remove-card absolute top-[-10px] left-[-10px] border border-gray-200 bg-white rounded-full w-8 h-8 flex items-center justify-center p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 							<Trash className="w-10 h-10 text-black" />
@@ -187,21 +146,33 @@ const LinkedinCards = memo(
 							/>
 						</div>
 					</div>
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="linkedin"
-						cardRef={cardRef}
-						cardId={i}
-					/>
-				</div>
-			);
-		}
+				);
+			}
 
-		return null;
+			return null;
+		};
+
+		// Grid yapısını korumak için dış div'i normal div, içeriği motion.div olarak render edelim
+		return (
+			<div
+				ref={cardRef}
+				className="size-full relative"
+				style={transitionStyle}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}>
+				<div className="size-full">{renderCardContent()}</div>
+				<HoverCard
+					isHovered={isHovered}
+					title={title}
+					position={hoverCardPosition}
+					cardType="linkedin"
+					cardRef={cardRef}
+					cardId={i}
+				/>
+			</div>
+		);
 	}
 );
 
-LinkedinCards.displayName = "LinkedinCard";
+LinkedinCards.displayName = "LinkedinCards";
 export { LinkedinCards };

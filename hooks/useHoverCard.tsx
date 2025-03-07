@@ -1,5 +1,6 @@
 import { useState, useEffect, RefObject, useCallback } from "react";
 import { debounce } from "lodash";
+import { useSpring, animated } from "@react-spring/web";
 
 // Hover pozisyonu için type
 interface HoverPosition {
@@ -73,4 +74,23 @@ export const useHoverCard = ({ ref, isDragging }: UseHoverCardProps) => {
 		handleMouseEnter,
 		handleMouseLeave,
 	};
+};
+const Card = ({ size }) => {
+	const [springs, api] = useSpring(() => ({
+		width: size === "SMALL" ? 200 : 400,
+		height: size === "TALL" ? 400 : 200,
+	}));
+
+	useEffect(() => {
+		api.start({
+			width: size === "SMALL" ? 200 : 400,
+			height: size === "TALL" ? 400 : 200,
+		});
+	}, [size, api]);
+
+	return (
+		<animated.div style={springs} className="card">
+			{/* Kart içeriği */}
+		</animated.div>
+	);
 };
