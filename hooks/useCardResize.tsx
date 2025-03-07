@@ -1,8 +1,15 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+	createContext,
+	useContext,
+	useState,
+	ReactNode,
+	useEffect,
+} from "react";
 
 interface CardResizeContextType {
 	resizeCard: (id: string, newSize: { w: number; h: number }) => void;
 	cardSizes: Record<string, { w: number; h: number }>;
+	updateLayoutPositions: (layouts: any) => void;
 }
 
 const CardResizeContext = createContext<CardResizeContextType | undefined>(
@@ -23,6 +30,12 @@ export const CardResizeProvider = ({
 	});
 
 	const [cardSizes, setCardSizes] = useState(initialSizes);
+	const [currentLayouts, setCurrentLayouts] = useState(initialLayouts);
+
+	// Yeni eklenen fonksiyon - layout pozisyonlarını günceller
+	const updateLayoutPositions = (layouts: any) => {
+		setCurrentLayouts(layouts);
+	};
 
 	const resizeCard = (id: string, newSize: { w: number; h: number }) => {
 		setCardSizes((prev) => ({
@@ -32,7 +45,12 @@ export const CardResizeProvider = ({
 	};
 
 	return (
-		<CardResizeContext.Provider value={{ resizeCard, cardSizes }}>
+		<CardResizeContext.Provider
+			value={{
+				resizeCard,
+				cardSizes,
+				updateLayoutPositions,
+			}}>
 			{children}
 		</CardResizeContext.Provider>
 	);

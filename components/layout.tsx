@@ -70,6 +70,30 @@ const LayoutContent = () => {
 		onDragStop?.();
 	};
 
+	const handleLayoutChange = (currentLayout: Layout[], allLayouts: any) => {
+		// Mevcut layout'u güncelleyerek pozisyonları kaydet
+		const updatedLayouts = {
+			...layouts,
+			lg: layouts.lg.map((item) => {
+				// Güncel layout'ta bu item'ın pozisyonunu bul
+				const updatedItem = currentLayout.find(
+					(layoutItem) => layoutItem.i === item.i
+				);
+				if (updatedItem) {
+					return {
+						...item,
+						x: updatedItem.x,
+						y: updatedItem.y,
+						w: updatedItem.w,
+						h: updatedItem.h,
+					};
+				}
+				return item;
+			}),
+		};
+		setLayouts(updatedLayouts);
+	};
+
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
 		[]
@@ -86,7 +110,8 @@ const LayoutContent = () => {
 				layouts={layouts}
 				containerPadding={[10, 10]}
 				onDragStart={handleDragStart}
-				onDragStop={handleDragStop}>
+				onDragStop={handleDragStop}
+				onLayoutChange={handleLayoutChange}>
 				{allCards.map((card) => (
 					<div
 						key={card.i}

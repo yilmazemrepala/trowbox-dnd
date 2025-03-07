@@ -253,7 +253,7 @@ export const cardData = {
 			size: "SMALL",
 			title: "Linkedin",
 			x: 0,
-			y: 12,
+			y: 0,
 			w: 1,
 			h: 1,
 		},
