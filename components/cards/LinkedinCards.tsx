@@ -71,7 +71,7 @@ const LinkedinCards = memo(
 									alt={title}
 									width={130}
 									height={130}
-									className=" object-cover rounded-md"
+									className="w-[130px] h-[130px] object-cover rounded-md"
 								/>
 							</div>
 
@@ -138,7 +138,7 @@ const LinkedinCards = memo(
 							<Image
 								src={catalogImage}
 								alt={title}
-								className="w-full rounded-md"
+								className="w-fit rounded-md"
 								objectFit="cover"
 								width={200}
 								height={200}

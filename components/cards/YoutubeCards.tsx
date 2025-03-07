@@ -56,7 +56,7 @@ const YoutubeCards = memo(
 						</div>
 						<div className="mt-4">
 							{!videoUrl && (
-								<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
+								<button className="bg-[#ff0000] h-8 w-fit text-white px-3 py-1 rounded-md font-semibold text-xs">
 									Subscribe
 								</button>
 							)}
@@ -106,12 +106,12 @@ const YoutubeCards = memo(
 									height={130}
 									className={`${
 										videoUrl ? " object-cover mt-16" : "object-cover"
-									} rounded-md`}
+									} rounded-md w-[130px] h-[130px]`}
 								/>
 							</div>
 
 							{!videoUrl && (
-								<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
+								<button className="bg-[#ff0000] h-8 w-fit text-white px-3 py-1 rounded-md font-semibold text-xs">
 									Subscribe
 								</button>
 							)}
@@ -156,7 +156,7 @@ const YoutubeCards = memo(
 								</span>
 							</div>
 							{!videoUrl && (
-								<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
+								<button className="bg-[#ff0000] h-8 w-fit text-white px-3 py-1 rounded-md font-semibold text-xs">
 									Subscribe
 								</button>
 							)}
@@ -210,7 +210,7 @@ const YoutubeCards = memo(
 								</span>
 							</div>
 							{!videoUrl && (
-								<button className="bg-[#ff0000] h-8 w-fit text-white px-4 py-1 rounded-full font-semibold text-xs">
+								<button className="bg-[#ff0000] h-8 w-fit text-white px-3 py-1 rounded-md font-semibold text-xs">
 									Subscribe
 								</button>
 							)}
@@ -219,7 +219,7 @@ const YoutubeCards = memo(
 							<Image
 								src={catalogImage}
 								alt={title}
-								className="w-full rounded-md"
+								className="w-fit rounded-md"
 								objectFit="cover"
 								width={200}
 								height={200}
