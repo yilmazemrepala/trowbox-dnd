@@ -15,7 +15,7 @@ export const cardData = {
 	lg: [
 		{
 			i: "1",
-			isResizable: true,
+			isResizable: false,
 			type: CardTypes.Spotify,
 			size: "TALL",
 			title: "My Playlist",
@@ -310,7 +310,7 @@ export const cardData = {
 	md: [
 		{
 			i: "1",
-			isResizable: true,
+			isResizable: false,
 			type: CardTypes.Spotify,
 			size: "TALL",
 			title: "My Playlist",
@@ -377,7 +377,7 @@ export const cardData = {
 	sm: [
 		{
 			i: "1",
-			isResizable: true,
+			isResizable: false,
 			type: CardTypes.Spotify,
 			size: "TALL",
 			title: "My Playlist",
@@ -431,7 +431,7 @@ export const cardData = {
 	xs: [
 		{
 			i: "1",
-			isResizable: true,
+			isResizable: false,
 			type: CardTypes.Spotify,
 			size: "TALL",
 			title: "My Playlist",

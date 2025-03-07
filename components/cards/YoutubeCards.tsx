@@ -215,7 +215,7 @@ const YoutubeCards = memo(
 								</button>
 							)}
 						</div>
-						<div className="flex flex-row flex-1 justify-between items-start mt-4">
+						<div className="flex flex-row flex-1 justify-between items-start py-2 px-1">
 							<Image
 								src={catalogImage}
 								alt={title}

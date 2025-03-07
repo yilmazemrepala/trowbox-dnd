@@ -134,7 +134,7 @@ const LinkedinCards = memo(
 								View
 							</button>
 						</div>
-						<div className="flex flex-row flex-1 justify-between items-start mt-4">
+						<div className="flex flex-row flex-1 justify-between items-start p-1">
 							<Image
 								src={catalogImage}
 								alt={title}
