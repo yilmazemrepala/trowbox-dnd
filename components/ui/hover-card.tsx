@@ -99,7 +99,7 @@ export const HoverCard = ({
 	return createPortal(
 		<div
 			ref={hoverCardRef}
-			className="absolute z-[999] w-fit bg-black gap-3 rounded-xl shadow-lg p-2 select-none"
+			className="absolute z-20 w-fit bg-black gap-3 rounded-xl shadow-lg p-2 select-none"
 			style={{
 				top: `${cardPosition.top}px`,
 				left: `${cardPosition.left}px`,
