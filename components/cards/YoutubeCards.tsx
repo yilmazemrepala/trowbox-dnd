@@ -7,7 +7,15 @@ import { useHoverCard } from "@/hooks/useHoverCard";
 import { Trash } from "lucide-react";
 
 const YoutubeCards = memo(
-	({ size, title, imageUrl, channelName, videoUrl, isDragging }: CardProps) => {
+	({
+		i,
+		size,
+		title,
+		imageUrl,
+		channelName,
+		videoUrl,
+		isDragging,
+	}: CardProps) => {
 		// Varsayılan katalog görseli
 		const defaultImage = "https://placehold.co/400x400";
 		const catalogImage = imageUrl || defaultImage;
@@ -16,11 +24,17 @@ const YoutubeCards = memo(
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
 			useHoverCard({ ref: cardRef, isDragging });
 
+		// CSS transitions ile minimal geçiş
+		const transitionStyle = {
+			transition: "opacity 100ms ease",
+		};
+
 		if (size === "SMALL") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div className="size-full bg-[#FFF0F1] rounded-3xl border border-[#ECE0E0] flex flex-col justify-between px-4 py-6 relative group">
@@ -54,6 +68,7 @@ const YoutubeCards = memo(
 						position={hoverCardPosition}
 						cardType="youtube"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -62,8 +77,9 @@ const YoutubeCards = memo(
 		if (size === "TALL") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div className="size-full bg-[#FFF0F1] rounded-3xl border border-[#ECE0E0] flex flex-col justify-between px-4 py-6 relative group">
@@ -107,6 +123,7 @@ const YoutubeCards = memo(
 						position={hoverCardPosition}
 						cardType="youtube"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -115,8 +132,9 @@ const YoutubeCards = memo(
 		if (size === "MEDIUM") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div className="size-full bg-[#FFF0F1] rounded-3xl border border-[#ECE0E0] flex flex-row justify-between px-4 py-6 relative group">
@@ -159,6 +177,7 @@ const YoutubeCards = memo(
 						position={hoverCardPosition}
 						cardType="youtube"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -167,8 +186,9 @@ const YoutubeCards = memo(
 		if (size === "LARGE") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div className="size-full bg-[#FFF0F1] rounded-3xl border border-[#ECE0E0] flex flex-col justify-between px-4 py-6  relative group">
@@ -212,6 +232,7 @@ const YoutubeCards = memo(
 						position={hoverCardPosition}
 						cardType="youtube"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);

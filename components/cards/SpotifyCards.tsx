@@ -12,6 +12,7 @@ import { FixedSizeList as List } from "react-window";
 
 const SpotifyCards = memo(
 	({
+		i,
 		size,
 		title,
 		songCount,
@@ -24,6 +25,11 @@ const SpotifyCards = memo(
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
 			useHoverCard({ ref: cardRef, isDragging });
 
+		// CSS transitions ile minimal geçiş
+		const transitionStyle = {
+			transition: "opacity 100ms ease",
+		};
+
 		// Play butonu için callback
 		const handlePlay = useCallback(() => {
 			console.log("Playing...");
@@ -32,8 +38,9 @@ const SpotifyCards = memo(
 		if (size === "MEDIUM") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div
@@ -80,6 +87,7 @@ const SpotifyCards = memo(
 						position={hoverCardPosition}
 						cardType="spotify"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -103,8 +111,9 @@ const SpotifyCards = memo(
 		if (size === "LARGE") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div
@@ -202,6 +211,7 @@ const SpotifyCards = memo(
 						position={hoverCardPosition}
 						cardType="spotify"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -210,8 +220,9 @@ const SpotifyCards = memo(
 		if (size === "TALL") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div
@@ -262,6 +273,7 @@ const SpotifyCards = memo(
 						position={hoverCardPosition}
 						cardType="spotify"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);
@@ -270,8 +282,9 @@ const SpotifyCards = memo(
 		if (size === "SMALL") {
 			return (
 				<div
-					className="size-full relative"
 					ref={cardRef}
+					className="size-full relative"
+					style={transitionStyle}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}>
 					<div
@@ -308,6 +321,7 @@ const SpotifyCards = memo(
 						position={hoverCardPosition}
 						cardType="spotify"
 						cardRef={cardRef}
+						cardId={i}
 					/>
 				</div>
 			);

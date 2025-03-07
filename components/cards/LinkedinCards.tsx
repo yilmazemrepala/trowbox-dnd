@@ -5,7 +5,6 @@ import { Trash } from "lucide-react";
 import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
 import { CardProps } from "@/types/cardProps.types";
-import { motion } from "framer-motion";
 
 const LinkedinCards = memo(
 	({ i, size, title, imageUrl, isDragging }: CardProps) => {

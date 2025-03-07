@@ -5,29 +5,23 @@ import { FaInstagram } from "react-icons/fa6";
 
 import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
-
-interface InstagramCardProps {
-	size: "SMALL" | "MEDIUM" | "LARGE" | "TALL";
-	title: string;
-	imageUrl?: string;
-	username?: string;
-	isDragging?: boolean;
-}
+import { CardProps } from "@/types/cardProps.types";
 
 const InstagramCards = memo(
-	({ size, title, isDragging }: InstagramCardProps) => {
+	({ i, size, title, imageUrl, isDragging }: CardProps) => {
 		const cardRef = useRef<HTMLDivElement>(null);
 
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
 			useHoverCard({ ref: cardRef, isDragging });
 
-		if (size === "SMALL") {
-			return (
-				<div
-					className="relative size-full"
-					ref={cardRef}
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+		// CSS transitions ile minimal geçiş
+		const transitionStyle = {
+			transition: "opacity 100ms ease",
+		};
+
+		const renderCardContent = () => {
+			if (size === "SMALL") {
+				return (
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
 						<div
@@ -62,25 +56,11 @@ const InstagramCards = memo(
 							Follow
 						</button>
 					</div>
+				);
+			}
 
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="instagram"
-						cardRef={cardRef}
-					/>
-				</div>
-			);
-		}
-
-		if (size === "MEDIUM") {
-			return (
-				<div
-					ref={cardRef}
-					className="relative size-full"
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "MEDIUM") {
+				return (
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-row justify-between px-4 py-4 relative group`}>
 						<div
@@ -129,25 +109,11 @@ const InstagramCards = memo(
 					/> */}
 						</div>
 					</div>
+				);
+			}
 
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="instagram"
-						cardRef={cardRef}
-					/>
-				</div>
-			);
-		}
-
-		if (size === "TALL") {
-			return (
-				<div
-					ref={cardRef}
-					className="relative size-full"
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "TALL") {
+				return (
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex gap-6 flex-col justify-between px-4 py-6 relative group`}>
 						<div
@@ -187,25 +153,11 @@ const InstagramCards = memo(
 							Follow
 						</button>
 					</div>
+				);
+			}
 
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="instagram"
-						cardRef={cardRef}
-					/>
-				</div>
-			);
-		}
-
-		if (size === "LARGE") {
-			return (
-				<div
-					ref={cardRef}
-					className="relative size-full"
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}>
+			if (size === "LARGE") {
+				return (
 					<div
 						className={`size-full bg-white rounded-3xl border border-gray-200 flex flex-col justify-between px-4 py-6 relative group`}>
 						<div
@@ -248,17 +200,29 @@ const InstagramCards = memo(
 							</div>
 						</div>
 					</div>
+				);
+			}
+		};
 
-					<HoverCard
-						isHovered={isHovered}
-						title={title}
-						position={hoverCardPosition}
-						cardType="instagram"
-						cardRef={cardRef}
-					/>
-				</div>
-			);
-		}
+		// Grid yapısını korumak için dış div'i normal div, içeriği motion.div olarak render edelim
+		return (
+			<div
+				ref={cardRef}
+				className="size-full relative"
+				style={transitionStyle}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}>
+				<div className="size-full">{renderCardContent()}</div>
+				<HoverCard
+					isHovered={isHovered}
+					title={title}
+					position={hoverCardPosition}
+					cardType="instagram"
+					cardRef={cardRef}
+					cardId={i}
+				/>
+			</div>
+		);
 	}
 );
 
