@@ -8,7 +8,7 @@ import { InstagramCards } from "@/components/cards/InstagramCards";
 import { SpotifyCards } from "@/components/cards/SpotifyCards";
 import { CatalogCards } from "@/components/cards/CatalogCards";
 import { YoutubeCards } from "@/components/cards/YoutubeCards";
-import { LinkedinCards } from "./cards/LinkedinCards";
+import { LinkedinCards } from "./LinkedinCards";
 import { useDragHandler } from "@/utils/dragHelper";
 import { CardProps } from "@/types/cardProps.types";
 import { CardResizeProvider } from "@/hooks/useCardResize";
@@ -18,10 +18,12 @@ const LayoutContent = memo(() => {
 	const [isDragging, setIsDragging] = useState(false);
 	const { layouts, handleLayoutChange } = useLayoutManager(cardData);
 
-	const allCards = layouts.lg.map((card) => ({
-		...card,
-		size: card.size as "TALL" | "SMALL" | "MEDIUM" | "LARGE",
-	}));
+	const allCards = layouts.lg.map(
+		(card: Omit<CardProps, "isDragging" | "keyProp">) => ({
+			...card,
+			size: card.size as "TALL" | "SMALL" | "MEDIUM" | "LARGE",
+		})
+	);
 
 	const { onDragStart, onDragStop } = useDragHandler(allCards);
 
@@ -41,11 +43,11 @@ const LayoutContent = memo(() => {
 	);
 
 	return (
-		<div className="w-screen m-auto flex justify-between b-10">
+		<div className="w-full flex justify-center">
 			<ResponsiveReactGridLayout
-				className="m-auto w-[900px]"
+				className="w-full"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
-				cols={{ xl: 4, lg: 4, md: 3, sm: 2, xs: 1 }}
+				cols={{ xl: 4, lg: 4, md: 4, sm: 2, xs: 1 }}
 				rowHeight={180}
 				margin={[10, 10]}
 				layouts={layouts}
@@ -53,7 +55,7 @@ const LayoutContent = memo(() => {
 				onDragStart={handleDragStart}
 				onDragStop={handleDragStop}
 				onLayoutChange={handleLayoutChange}>
-				{allCards.map((card) => (
+				{allCards.map((card: Omit<CardProps, "isDragging" | "keyProp">) => (
 					<div
 						key={card.i}
 						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
@@ -87,7 +89,7 @@ const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 	}
 });
 
-const Layout = () => {
+const GridLayout = () => {
 	return (
 		<CardResizeProvider initialLayouts={cardData}>
 			<LayoutContent />
@@ -98,4 +100,4 @@ const Layout = () => {
 Block.displayName = "Block";
 LayoutContent.displayName = "LayoutContent";
 
-export default memo(Layout);
+export default memo(GridLayout);
