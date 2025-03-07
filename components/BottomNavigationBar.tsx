@@ -8,7 +8,7 @@ function BottomNavigationBar() {
 				<div className="flex flex-row col">
 					<Button
 						variant="outline"
-						className="bg-gradient-to-r from-green-400 to-green-300 hover:from-green-500 hover:to-green-400 text-white hover:text-white font-bold border-none transition-all duration-75">
+						className="bg-gradient-to-r bg-green-400 hover:bg-green-400 text-white hover:text-white font-bold hover:border-green-500 transition-all duration-75">
 						Kaydet
 					</Button>
 				</div>
