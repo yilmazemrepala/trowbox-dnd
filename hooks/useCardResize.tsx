@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useContext,
-	useState,
-	ReactNode,
-	useEffect,
-} from "react";
+import { createContext, useContext, useState, ReactNode, useMemo } from "react";
 
 interface CardResizeContextType {
 	resizeCard: (id: string, newSize: { w: number; h: number }) => void;
@@ -24,33 +18,46 @@ export const CardResizeProvider = ({
 	initialLayouts: any;
 }) => {
 	// Initialize with the current card sizes from layout
-	const initialSizes: Record<string, { w: number; h: number }> = {};
-	initialLayouts.lg.forEach((item: any) => {
-		initialSizes[item.i] = { w: item.w, h: item.h };
-	});
+	const initialSizes = useMemo(() => {
+		const sizes: Record<string, { w: number; h: number }> = {};
+		initialLayouts.lg.forEach((item: any) => {
+			sizes[item.i] = { w: item.w, h: item.h };
+		});
+		return sizes;
+	}, [initialLayouts]);
 
 	const [cardSizes, setCardSizes] = useState(initialSizes);
 	const [currentLayouts, setCurrentLayouts] = useState(initialLayouts);
 
 	// Yeni eklenen fonksiyon - layout pozisyonlarını günceller
-	const updateLayoutPositions = (layouts: any) => {
-		setCurrentLayouts(layouts);
-	};
+	const updateLayoutPositions = useMemo(
+		() => (layouts: any) => {
+			setCurrentLayouts(layouts);
+		},
+		[]
+	);
 
-	const resizeCard = (id: string, newSize: { w: number; h: number }) => {
-		setCardSizes((prev) => ({
-			...prev,
-			[id]: newSize,
-		}));
-	};
+	const resizeCard = useMemo(
+		() => (id: string, newSize: { w: number; h: number }) => {
+			setCardSizes((prev) => ({
+				...prev,
+				[id]: newSize,
+			}));
+		},
+		[]
+	);
+
+	const value = useMemo(
+		() => ({
+			resizeCard,
+			cardSizes,
+			updateLayoutPositions,
+		}),
+		[resizeCard, cardSizes, updateLayoutPositions]
+	);
 
 	return (
-		<CardResizeContext.Provider
-			value={{
-				resizeCard,
-				cardSizes,
-				updateLayoutPositions,
-			}}>
+		<CardResizeContext.Provider value={value}>
 			{children}
 		</CardResizeContext.Provider>
 	);
@@ -58,8 +65,5 @@ export const CardResizeProvider = ({
 
 export const useCardResize = () => {
 	const context = useContext(CardResizeContext);
-	if (context === undefined) {
-		throw new Error("useCardResize must be used within a CardResizeProvider");
-	}
 	return context;
 };
