@@ -13,7 +13,7 @@ import { useDragHandler } from "@/utils/dragHelper";
 import { CardProps } from "@/types/cardProps.types";
 import { CardResizeProvider, useCardResize } from "@/hooks/useCardResize";
 
-const LayoutContent = () => {
+const LayoutContent = memo(() => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [layouts, setLayouts] = useState(cardData);
 	const { cardSizes } = useCardResize();
@@ -123,7 +123,7 @@ const LayoutContent = () => {
 			</ResponsiveReactGridLayout>
 		</div>
 	);
-};
+});
 
 const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 	switch (card.type) {
@@ -146,8 +146,6 @@ const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 	}
 });
 
-Block.displayName = "Block";
-
 const Layout = () => {
 	return (
 		<CardResizeProvider initialLayouts={cardData}>
@@ -155,5 +153,8 @@ const Layout = () => {
 		</CardResizeProvider>
 	);
 };
+
+Block.displayName = "Block";
+LayoutContent.displayName = "LayoutContent";
 
 export default memo(Layout);
