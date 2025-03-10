@@ -6,7 +6,7 @@ import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
 
 const ImageCards = memo(
-	({ i, size, title, imageUrl, isDragging }: CardProps) => {
+	({ i, title, imageUrl, isDragging, onSizeChange }: CardProps) => {
 		const defaultImage = "https://placehold.co/400x400";
 		const catalogImage = imageUrl || defaultImage;
 
@@ -16,23 +16,6 @@ const ImageCards = memo(
 
 		const transitionStyle = {
 			transition: "opacity 100ms ease",
-		};
-
-		const getImageDimensions = () => {
-			switch (size) {
-				case "SMALL":
-					return { width: 200, height: 200 };
-				case "MEDIUM":
-					return { width: 400, height: 200 };
-				case "TALL":
-					return { width: 200, height: 400 };
-				case "LARGE":
-					return { width: 400, height: 400 };
-				case "BANNER":
-					return { width: 800, height: 400 };
-				default:
-					return { width: 400, height: 400 };
-			}
 		};
 
 		return (
@@ -69,6 +52,7 @@ const ImageCards = memo(
 					cardType="image"
 					cardRef={cardRef}
 					cardId={i}
+					onSizeChange={onSizeChange}
 				/>
 			</div>
 		);

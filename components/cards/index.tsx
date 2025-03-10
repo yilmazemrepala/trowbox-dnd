@@ -14,8 +14,13 @@ import { CardProps } from "@/types/cardProps.types";
 import { CardResizeProvider } from "@/hooks/useCardResize";
 import { useLayoutManager } from "@/hooks/useLayoutManager";
 import { ImageCards } from "@/components/cards/ImageCards";
+
 const LayoutContent = memo(() => {
 	const [isDragging, setIsDragging] = useState(false);
+	const [newImage, setNewImage] = useState<string | null>(null);
+	const [newImageSize, setNewImageSize] = useState<
+		"SMALL" | "MEDIUM" | "TALL" | "LARGE" | "BANNER"
+	>("SMALL");
 	const { layouts, handleLayoutChange } = useLayoutManager(cardData);
 
 	const allCards = layouts.lg.map(
@@ -37,13 +42,40 @@ const LayoutContent = memo(() => {
 		onDragStop?.();
 	};
 
+	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		const file = e.dataTransfer.files[0];
+		if (file && file.type.startsWith("image/")) {
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				if (event.target?.result) {
+					setNewImage(event.target.result as string);
+				}
+			};
+			reader.readAsDataURL(file);
+		}
+	};
+
+	const handleSizeChange = (
+		size: "SMALL" | "MEDIUM" | "TALL" | "LARGE" | "BANNER"
+	) => {
+		setNewImageSize(size);
+	};
+
+	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+	};
+
 	const ResponsiveReactGridLayout = useMemo(
 		() => WidthProvider(Responsive),
 		[]
 	);
 
 	return (
-		<div className="w-full flex justify-center">
+		<div
+			className="w-full flex justify-center"
+			onDrop={handleDrop}
+			onDragOver={handleDragOver}>
 			<ResponsiveReactGridLayout
 				className="w-full"
 				breakpoints={{ xl: 1200, lg: 899, md: 768, sm: 480, xs: 200 }}
@@ -60,11 +92,75 @@ const LayoutContent = memo(() => {
 				{allCards.map((card: Omit<CardProps, "isDragging" | "keyProp">) => (
 					<div
 						key={card.i}
-						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
-						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
+						className="flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
 						<Block keyProp={card.i} isDragging={isDragging} {...card} />
 					</div>
 				))}
+				{newImage && (
+					<div
+						key="new-image"
+						data-grid={{
+							x: 0,
+							y: 0,
+							w:
+								newImageSize === "SMALL"
+									? 1
+									: newImageSize === "MEDIUM"
+									? 2
+									: newImageSize === "TALL"
+									? 1
+									: newImageSize === "LARGE"
+									? 2
+									: 4,
+							h:
+								newImageSize === "SMALL"
+									? 1
+									: newImageSize === "MEDIUM"
+									? 1
+									: newImageSize === "TALL"
+									? 2
+									: newImageSize === "LARGE"
+									? 2
+									: 2,
+						}}
+						className="flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
+						<ImageCards
+							i="new-image"
+							type="image"
+							isResizable={false}
+							cardType="image"
+							x={0}
+							y={0}
+							title="New Image"
+							imageUrl={newImage}
+							isDragging={false}
+							onSizeChange={handleSizeChange}
+							size={newImageSize}
+							w={
+								newImageSize === "SMALL"
+									? 1
+									: newImageSize === "MEDIUM"
+									? 2
+									: newImageSize === "TALL"
+									? 1
+									: newImageSize === "LARGE"
+									? 2
+									: 4
+							}
+							h={
+								newImageSize === "SMALL"
+									? 1
+									: newImageSize === "MEDIUM"
+									? 1
+									: newImageSize === "TALL"
+									? 2
+									: newImageSize === "LARGE"
+									? 2
+									: 2
+							}
+						/>
+					</div>
+				)}
 			</ResponsiveReactGridLayout>
 		</div>
 	);

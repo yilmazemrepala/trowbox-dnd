@@ -3,6 +3,10 @@ export interface CardProps {
 	type: string;
 	isResizable: boolean;
 	size: "TALL" | "SMALL" | "MEDIUM" | "LARGE" | "BANNER";
+	cardType: "image" | "video" | "audio" | "text" | "link";
+	onSizeChange?: (
+		size: "SMALL" | "MEDIUM" | "TALL" | "LARGE" | "BANNER"
+	) => void;
 	title: string;
 	songCount?: number;
 	imageUrl?: string;

@@ -8,7 +8,7 @@ import { useCardResize } from "@/hooks/useCardResize";
 
 interface HoverCardProps {
 	isHovered: boolean;
-	isImage: boolean;
+	isImage?: boolean;
 	title: string;
 	position: {
 		top: number;
@@ -17,6 +17,9 @@ interface HoverCardProps {
 	cardType: string;
 	cardRef: React.RefObject<HTMLDivElement>;
 	cardId: string; // Add cardId to identify which card to resize
+	onSizeChange?: (
+		size: "SMALL" | "MEDIUM" | "TALL" | "LARGE" | "BANNER"
+	) => void;
 }
 
 export const HoverCard = ({
@@ -26,6 +29,7 @@ export const HoverCard = ({
 	cardRef,
 	cardId,
 	isImage,
+	onSizeChange,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
 	const [isHovered, setIsHovered] = useState(initialIsHovered);
@@ -63,26 +67,21 @@ export const HoverCard = ({
 
 	const handleIconClick = (iconType: string, e: React.MouseEvent) => {
 		e.stopPropagation();
-		e.preventDefault();
-		setActiveIcon(activeIcon === iconType ? null : iconType);
-		setIsHovered(true);
-
-		// Handle resize based on icon type
 		switch (iconType) {
 			case "squareSmall":
-				resizeCard(cardId, { w: 1, h: 1 }); // SMALL size
+				onSizeChange?.("SMALL");
 				break;
 			case "horizontal":
-				resizeCard(cardId, { w: 2, h: 1 }); // MEDIUM size
+				onSizeChange?.("MEDIUM");
 				break;
 			case "vertical":
-				resizeCard(cardId, { w: 1, h: 2 }); // TALL size
+				onSizeChange?.("TALL");
 				break;
 			case "square":
-				resizeCard(cardId, { w: 2, h: 2 }); // LARGE size
+				onSizeChange?.("LARGE");
 				break;
 			case "banner":
-				resizeCard(cardId, { w: 4, h: 2 }); // BANNER size
+				onSizeChange?.("BANNER");
 				break;
 			default:
 				break;

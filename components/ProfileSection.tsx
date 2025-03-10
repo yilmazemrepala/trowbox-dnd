@@ -91,7 +91,7 @@ function ProfileSection() {
 							<Mail size={20} />
 						</div>
 						<span className="text-[#007AFF] text-sm font-medium group-hover:text-white">
-							E-posta
+							Email
 						</span>
 					</div>
 
@@ -109,7 +109,7 @@ function ProfileSection() {
 							<UserRoundPlus size={20} />
 						</div>
 						<span className="text-[#FF9500] text-sm font-medium group-hover:text-white">
-							Kaydet
+							Save
 						</span>
 					</div>
 				</div>
