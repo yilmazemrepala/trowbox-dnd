@@ -1,10 +1,23 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-separator";
 import { Link, Quote, Image, Laptop, Smartphone } from "lucide-react";
+import { useState } from "react";
 
-function BottomNavigationBar() {
+function BottomNavigationBar({
+	onImageUpload,
+}: {
+	onImageUpload: (imageUrl: string) => void;
+}) {
+	const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+	const handleImageUpload = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
+		}
+	};
+
 	return (
 		<div className="fixed bottom-10 left-0 right-0 z-50 flex justify-center items-center">
 			<div className="bg-white border border-gray-200 rounded-2xl w-fit h-14 flex px-4 items-center">
@@ -22,7 +35,9 @@ function BottomNavigationBar() {
 
 					<div className="flex items-center gap-4">
 						<Link className="h-5 w-5 text-gray-600" />
-						<div className="bg-orange-400 rounded-md p-1.5">
+						<div
+							className="bg-orange-400 rounded-md p-1.5"
+							onClick={handleImageUpload}>
 							<Image className="h-4 w-4 text-white" />
 						</div>
 						<div className="bg-blue-400 rounded-md p-1.5">
@@ -40,6 +55,23 @@ function BottomNavigationBar() {
 							</div>
 						</div>
 					</div>
+
+					<input
+						type="file"
+						ref={fileInputRef}
+						className="hidden"
+						accept="image/*"
+						onChange={(e) => {
+							const file = e.target.files?.[0];
+							if (file) {
+								const reader = new FileReader();
+								reader.onloadend = () => {
+									onImageUpload(reader.result as string);
+								};
+								reader.readAsDataURL(file);
+							}
+						}}
+					/>
 
 					<Separator
 						orientation="vertical"

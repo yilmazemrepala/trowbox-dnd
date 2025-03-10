@@ -6,9 +6,16 @@ import { HoverCard } from "@/components/ui/hover-card";
 import { useHoverCard } from "@/hooks/useHoverCard";
 
 const ImageCards = memo(
-	({ i, size, title, imageUrl, isDragging }: CardProps) => {
+	({
+		i,
+		size,
+		title,
+		imageUrl,
+		isDragging,
+		uploadedImage,
+	}: CardProps & { uploadedImage: string | null }) => {
 		const defaultImage = "https://placehold.co/400x400";
-		const catalogImage = imageUrl || defaultImage;
+		const catalogImage = uploadedImage || imageUrl || defaultImage;
 
 		const cardRef = useRef<HTMLDivElement>(null);
 		const { isHovered, hoverCardPosition, handleMouseEnter, handleMouseLeave } =
