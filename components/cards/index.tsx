@@ -14,11 +14,8 @@ import { CardProps } from "@/types/cardProps.types";
 import { CardResizeProvider } from "@/hooks/useCardResize";
 import { useLayoutManager } from "@/hooks/useLayoutManager";
 import { ImageCards } from "@/components/cards/ImageCards";
-import BottomNavigationBar from "@/components/BottomNavigationBar";
-
 const LayoutContent = memo(() => {
 	const [isDragging, setIsDragging] = useState(false);
-	const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 	const { layouts, handleLayoutChange } = useLayoutManager(cardData);
 
 	const allCards = layouts.lg.map(
@@ -68,26 +65,7 @@ const LayoutContent = memo(() => {
 						<Block keyProp={card.i} isDragging={isDragging} {...card} />
 					</div>
 				))}
-				{uploadedImages.map((imageUrl, index) => (
-					<div
-						key={`uploaded-image-${index}`}
-						className=" flex justify-center items-center shadow-[inset_0_0_0_2px_rgba(0,0,0,0)] 
-						 rounded-2xl text-2xl text-[#1d1d1f] visible cursor-grab active:cursor-grabbing">
-						<ImageCards
-							i={`uploaded-image-${index}`}
-							size="MEDIUM"
-							title={`Uploaded Image ${index + 1}`}
-							imageUrl={imageUrl}
-							isDragging={isDragging}
-						/>
-					</div>
-				))}
 			</ResponsiveReactGridLayout>
-			<BottomNavigationBar
-				onImageUpload={(imageUrl) =>
-					setUploadedImages((prev) => [...prev, imageUrl])
-				}
-			/>
 		</div>
 	);
 });

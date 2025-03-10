@@ -1,6 +1,7 @@
 "use server";
 import GridLayout from "@/components/cards";
 import ProfileSection from "@/components/ProfileSection";
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 
 async function HomePage() {
 	return (
@@ -14,6 +15,8 @@ async function HomePage() {
 					<GridLayout />
 				</div>
 			</div>
+
+			<BottomNavigationBar />
 		</div>
 	);
 }
