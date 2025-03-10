@@ -12,7 +12,7 @@ function BottomNavigationBar() {
 					<Button
 						variant="outline"
 						className="bg-green-400 hover:bg-green-400 text-white hover:text-white font-bold hover:border-green-500 transition-all duration-75 relative overflow-hidden shimmer-button rounded-lg px-6">
-						<span className="relative z-10">Share my Bento</span>
+						<span className="relative z-10">Save</span>
 					</Button>
 
 					<Separator
