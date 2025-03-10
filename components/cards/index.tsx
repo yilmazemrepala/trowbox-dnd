@@ -54,7 +54,9 @@ const LayoutContent = memo(() => {
 				containerPadding={[10, 10]}
 				onDragStart={handleDragStart}
 				onDragStop={handleDragStop}
-				onLayoutChange={handleLayoutChange}>
+				onLayoutChange={(currentLayout, allLayouts) =>
+					handleLayoutChange(currentLayout, allLayouts)
+				}>
 				{allCards.map((card: Omit<CardProps, "isDragging" | "keyProp">) => (
 					<div
 						key={card.i}

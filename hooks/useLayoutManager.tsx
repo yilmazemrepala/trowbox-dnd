@@ -9,39 +9,65 @@ export const useLayoutManager = (initialLayouts: any) => {
 	// Kart boyutları değiştiğinde layout'u güncelle
 	useEffect(() => {
 		if (Object.keys(cardSizes).length > 0) {
-			const updatedLayouts = {
-				...layouts,
-				lg: layouts.lg.map((item) => {
-					if (cardSizes[item.i]) {
-						return {
-							...item,
-							w: cardSizes[item.i].w,
-							h: cardSizes[item.i].h,
-							size: getSizeFromDimensions(
-								cardSizes[item.i].w,
-								cardSizes[item.i].h
-							),
-						};
+			const updatedLayouts = Object.keys(layouts).reduce(
+				(acc, breakpoint) => {
+					// Layout array'i varsa işlem yap
+					if (Array.isArray(layouts[breakpoint])) {
+						acc[breakpoint] = layouts[breakpoint].map((item) => {
+							if (cardSizes[item.i]) {
+								return {
+									...item,
+									w: cardSizes[item.i].w,
+									h: cardSizes[item.i].h,
+									size: getSizeFromDimensions(
+										cardSizes[item.i].w,
+										cardSizes[item.i].h
+									),
+								};
+							}
+							return item;
+						});
+					} else {
+						// Layout array'i yoksa orijinal değeri koru
+						acc[breakpoint] = layouts[breakpoint];
 					}
-					return item;
-				}),
-			};
+					return acc;
+				},
+				{ ...layouts }
+			);
+
 			setLayouts(updatedLayouts);
 		}
 	}, [cardSizes]);
 
 	// Layout değişikliklerini işle
 	const handleLayoutChange = useCallback(
-		(currentLayout: Layout[]) => {
-			const updatedLayouts = {
-				...layouts,
-				lg: layouts.lg.map((item) => {
-					const updatedItem = currentLayout.find(
-						(layoutItem) => layoutItem.i === item.i
-					);
-					return updatedItem ? { ...item, ...updatedItem } : item;
-				}),
-			};
+		(currentLayout: Layout[], allLayouts: any) => {
+			// allLayouts null veya undefined ise erken çık
+			if (!allLayouts) return;
+
+			const updatedLayouts = Object.keys(allLayouts).reduce(
+				(acc, breakpoint) => {
+					// Layout array'i varsa işlem yap
+					if (
+						Array.isArray(layouts[breakpoint]) &&
+						Array.isArray(allLayouts[breakpoint])
+					) {
+						acc[breakpoint] = layouts[breakpoint].map((item) => {
+							const updatedItem = allLayouts[breakpoint].find(
+								(layoutItem) => layoutItem.i === item.i
+							);
+							return updatedItem ? { ...item, ...updatedItem } : item;
+						});
+					} else {
+						// Layout array'i yoksa orijinal değeri koru
+						acc[breakpoint] = layouts[breakpoint];
+					}
+					return acc;
+				},
+				{ ...layouts }
+			);
+
 			setLayouts(updatedLayouts);
 			updateLayoutPositions(updatedLayouts);
 		},
