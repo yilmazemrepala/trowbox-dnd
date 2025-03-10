@@ -13,7 +13,7 @@ import { useDragHandler } from "@/utils/dragHelper";
 import { CardProps } from "@/types/cardProps.types";
 import { CardResizeProvider } from "@/hooks/useCardResize";
 import { useLayoutManager } from "@/hooks/useLayoutManager";
-
+import { ImageCards } from "@/components/cards/ImageCards";
 const LayoutContent = memo(() => {
 	const [isDragging, setIsDragging] = useState(false);
 	const { layouts, handleLayoutChange } = useLayoutManager(cardData);
@@ -82,6 +82,8 @@ const Block = memo(({ keyProp, isDragging, ...card }: CardProps) => {
 			return <YoutubeCards {...card} isDragging={isDragging} />;
 		case "linkedin":
 			return <LinkedinCards {...card} isDragging={isDragging} />;
+		case "image":
+			return <ImageCards {...card} isDragging={isDragging} />;
 		default:
 			return (
 				<div className="h-full w-full flex flex-col justify-center items-center p-6 bg-slate-200 text-[var(--black-1)] rounded-2xl text-3xl uppercase">

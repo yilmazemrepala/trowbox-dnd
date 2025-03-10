@@ -8,6 +8,7 @@ import { useCardResize } from "@/hooks/useCardResize";
 
 interface HoverCardProps {
 	isHovered: boolean;
+	isImage: boolean;
 	title: string;
 	position: {
 		top: number;
@@ -24,6 +25,7 @@ export const HoverCard = ({
 	cardType,
 	cardRef,
 	cardId,
+	isImage,
 }: HoverCardProps) => {
 	const [cardPosition, setCardPosition] = useState(position);
 	const [isHovered, setIsHovered] = useState(initialIsHovered);
@@ -79,6 +81,9 @@ export const HoverCard = ({
 			case "square":
 				resizeCard(cardId, { w: 2, h: 2 }); // LARGE size
 				break;
+			case "banner":
+				resizeCard(cardId, { w: 4, h: 2 }); // BANNER size
+				break;
 			default:
 				break;
 		}
@@ -107,7 +112,10 @@ export const HoverCard = ({
 			onMouseDown={(e) => e.stopPropagation()}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={(e) => {
-				if (!hoverCardRef.current?.contains(e.relatedTarget as Node)) {
+				if (
+					!e.relatedTarget ||
+					!hoverCardRef.current?.contains(e.relatedTarget as Node)
+				) {
 					setIsHovered(false);
 				}
 			}}>
@@ -142,6 +150,15 @@ export const HoverCard = ({
 						className={`${getIconClassName("square")} h-5 w-5 stroke-[2.5]`}
 					/>
 				</span>
+				{isImage && (
+					<span
+						onClick={(e) => handleIconClick("banner", e)}
+						className={getSpanClassName("banner")}>
+						<LuRectangleHorizontal
+							className={`${getIconClassName("banner")} h-8 w-12 stroke-[2.5]`}
+						/>
+					</span>
+				)}
 				<Separator
 					orientation="vertical"
 					className=" !h-3 !bg- !text-gray-500"

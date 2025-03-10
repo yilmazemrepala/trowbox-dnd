@@ -134,11 +134,11 @@ const LinkedinCards = memo(
 								View
 							</button>
 						</div>
-						<div className="flex flex-row flex-1 justify-between items-start p-1">
+						<div className="flex flex-row flex-1 justify-between h-[250px] items-start px-1">
 							<Image
 								src={catalogImage}
 								alt={title}
-								className="w-fit rounded-md"
+								className="size-full rounded-md"
 								objectFit="cover"
 								width={200}
 								height={200}

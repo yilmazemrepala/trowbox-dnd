@@ -215,11 +215,11 @@ const YoutubeCards = memo(
 								</button>
 							)}
 						</div>
-						<div className="flex flex-row flex-1 justify-between items-start py-2 px-1">
+						<div className="flex flex-row flex-1 justify-between h-[250px] items-start py-2 px-1">
 							<Image
 								src={catalogImage}
 								alt={title}
-								className="w-fit rounded-md"
+								className="size-full rounded-md"
 								objectFit="cover"
 								width={200}
 								height={200}
